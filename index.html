@@ -41,6 +41,8 @@
             background: var(--background);
             color: var(--text);
             font-family: var(--font);
+            font-size: 13px;
+            line-height: 1.5;
             overflow-x: hidden;
         }
 
@@ -59,23 +61,24 @@
         }
 
         header img {
-            height: 8em;
+            height: 96px;
             width: auto;
             border-radius: 22%;
         }
 
         header h1 {
-            font-size: 3em;
-            margin: 0.3em 0 0 0;
+            font-size: 36px;
+            margin: 12px 0 0 0;
         }
 
         header p {
-            margin: 0.3em 0 0 0;
+            font-size: 15px;
+            margin: 8px 0 0 0;
             line-height: 1.4;
         }
 
         header p.sub {
-            font-size: 0.85em;
+            font-size: 11px;
             color: var(--text-tertiary);
         }
 
@@ -91,9 +94,9 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            padding: 0.6em 1.2em;
+            padding: 8px 16px;
             border-radius: 8px;
-            font-size: 0.85em;
+            font-size: 13px;
             font-weight: 600;
             text-decoration: none;
             transition: opacity 0.2s;
@@ -126,10 +129,10 @@
         }
 
         h2 {
-            font-size: 2em;
+            font-size: 20px;
             text-align: center;
-            margin: 2.5em 0 0 0;
-            padding-bottom: 0.8em;
+            margin: 48px 0 0 0;
+            padding-bottom: 12px;
         }
 
         h2 strong {
@@ -153,13 +156,14 @@
         nav a {
             color: var(--text);
             text-decoration: none;
-            font-size: 0.8em;
-            font-weight: 500;
+            font-size: 12px;
+            font-weight: 600;
             transition: color 0.2s ease;
             text-transform: uppercase;
-            padding: 0.3em 0.4em;
-            border-radius: 0.4em;
-            margin: 0 0.3em;
+            letter-spacing: 0.3px;
+            padding: 4px 6px;
+            border-radius: 4px;
+            margin: 0 4px;
         }
 
         nav a:hover {
@@ -189,10 +193,10 @@
 
         .content-list article h3 {
             font-family: var(--font);
-            font-weight: 700;
-            margin: 2em 0 0 0;
-            font-size: 1em;
-            padding: 0.4em 0 0.5em 0;
+            font-weight: 600;
+            margin: 24px 0 0 0;
+            font-size: 15px;
+            padding: 4px 0 6px 0;
         }
 
         .content-list article h3.intro {
@@ -201,7 +205,8 @@
 
         .content-list article p {
             font-weight: 400;
-            margin: 0.5em 0 1em 0;
+            font-size: 13px;
+            margin: 6px 0 12px 0;
             line-height: 1.6;
             color: var(--text);
         }
@@ -233,7 +238,7 @@
         p a, main a {
             color: var(--tint);
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 500;
         }
 
         p a:hover {
@@ -245,22 +250,23 @@
         }
 
         p > code {
-            border-radius: 6px;
-            padding: 0.2em 0.3em;
+            border-radius: 4px;
+            padding: 2px 4px;
             background: var(--secondary-background);
-            font-size: 0.85em;
+            font-size: 11px;
             font-family: "SF Mono", "Fira Code", monospace;
         }
 
         pre:has(code) {
             position: relative;
-            font-size: 0.8rem;
+            font-size: 10px;
             background: var(--background-secondary);
             border: 1px solid var(--border-subtle);
             border-radius: 8px;
-            padding: 1em 1.2em;
+            padding: 12px 16px;
             overflow-x: auto;
-            margin: 1em 0;
+            margin: 12px 0;
+            line-height: 1.6;
         }
 
         pre code {
@@ -284,6 +290,10 @@
             gap: 1em;
         }
 
+        footer {
+            font-size: 11px;
+        }
+
         footer a {
             color: var(--tint);
             text-decoration: none;
@@ -299,7 +309,8 @@
         }
 
         @media (max-width: 640px) {
-            header h1 { font-size: 2.2em; }
+            header h1 { font-size: 28px; }
+            header p { font-size: 13px; }
         }
     </style>
 </head>
