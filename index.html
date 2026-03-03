@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Voom - Open-Source Loom Alternative for macOS</title>
+    <meta name="description" content="Privacy-first screen recording for macOS. Record your screen, camera, and mic — transcribe on-device, share via your own infrastructure. Free and open source.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Voom">
+    <meta property="og:description" content="Open-source Loom alternative for macOS. Record, transcribe, share.">
+    <meta property="og:image" content="icon.png">
+    <link rel="icon" type="image/png" href="icon.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #111;
+            color: rgba(255, 255, 255, 0.5);
+            font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: #FF6B35;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Nav */
+        nav {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 24px 24px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        nav .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        nav .logo img {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+        }
+
+        nav .logo span {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        nav .links {
+            display: flex;
+            gap: 24px;
+        }
+
+        nav .links a {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 13px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        nav .links a:hover {
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+        }
+
+        hr.nav-rule {
+            max-width: 800px;
+            margin: 20px auto 0;
+            border: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 80px 24px 60px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero img.icon {
+            width: 128px;
+            height: 128px;
+            border-radius: 28px;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+        }
+
+        .hero .tagline {
+            font-size: 22px;
+            color: rgba(255, 255, 255, 0.45);
+            margin-bottom: 8px;
+        }
+
+        .hero .tagline em {
+            color: #FF6B35;
+            font-style: normal;
+        }
+
+        .hero .sub {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        .hero .buttons {
+            margin-top: 40px;
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: #FF6B35;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #e55a28;
+            text-decoration: none;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.06);
+            color: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            text-decoration: none;
+        }
+
+        /* Screenshot */
+        .screenshot-wrap {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px 40px;
+        }
+
+        .screenshot {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Content */
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px 80px;
+        }
+
+        h2 {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 20px;
+            font-weight: 700;
+            margin-top: 64px;
+            margin-bottom: 16px;
+        }
+
+        h3 {
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 15px;
+            font-weight: 600;
+            margin-top: 32px;
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: 16px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            padding: 6px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        ul li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 14px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #FF6B35;
+        }
+
+        /* Feature grid */
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        .feature {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .feature .label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #FF6B35;
+            margin-bottom: 6px;
+        }
+
+        .feature .title {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .feature .desc {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.4);
+            line-height: 1.5;
+        }
+
+        /* Comparison table */
+        .comparison {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 16px;
+            font-size: 14px;
+        }
+
+        .comparison th {
+            text-align: left;
+            padding: 10px 12px;
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .comparison td {
+            padding: 10px 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .comparison td:first-child {
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 500;
+        }
+
+        .comparison .yes {
+            color: #30D158;
+        }
+
+        .comparison .no {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .comparison .voom-col {
+            color: #FF6B35;
+        }
+
+        /* Free tier table */
+        .tier-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 16px;
+            font-size: 14px;
+        }
+
+        .tier-table th {
+            text-align: left;
+            padding: 10px 12px;
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .tier-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .tier-table td:first-child {
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 500;
+        }
+
+        /* Code */
+        code {
+            background: rgba(255, 255, 255, 0.06);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-family: "SF Mono", "Fira Code", monospace;
+        }
+
+        pre {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            padding: 16px 20px;
+            overflow-x: auto;
+            margin: 16px 0;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+        }
+
+        /* Stack */
+        .stack {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .stack-item {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        .stack-item .key {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 12px;
+            min-width: 100px;
+        }
+
+        .stack-item .val {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Footer */
+        footer {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+        }
+
+        footer .links {
+            display: flex;
+            gap: 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 32px; }
+            .hero .tagline { font-size: 18px; }
+            .hero .sub { font-size: 15px; }
+            .features { grid-template-columns: 1fr; }
+            .stack { grid-template-columns: 1fr; }
+            .comparison th:last-child,
+            .comparison td:last-child { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="/" class="logo">
+        <img src="icon.png" alt="Voom icon">
+        <span>Voom</span>
+    </a>
+    <div class="links">
+        <a href="https://github.com/aritropaul/voom">GitHub</a>
+        <a href="https://github.com/aritropaul/voom/releases/latest">Download</a>
+        <a href="mailto:voom@aritro.xyz">Contact</a>
+    </div>
+</nav>
+<hr class="nav-rule">
+
+<div class="hero">
+    <img src="icon.png" alt="Voom" class="icon">
+    <h1>Voom</h1>
+    <p class="tagline">Record your screen. Share a link.</p>
+    <p class="tagline">Open-source <em>Loom</em> alternative for macOS.</p>
+    <p class="sub">No Electron. No cloud dependency. No subscription.</p>
+
+    <div class="buttons">
+        <a href="https://github.com/aritropaul/voom/releases/latest" class="btn btn-primary">Download</a>
+        <a href="https://github.com/aritropaul/voom" class="btn btn-secondary">View Source</a>
+    </div>
+</div>
+
+<div class="screenshot-wrap">
+    <img src="screenshot.png" alt="Voom app screenshot" class="screenshot">
+</div>
+
+<div class="content">
+
+    <h2>What is Voom?</h2>
+    <p>
+        Voom is a privacy-first screen recording app for macOS. It records your screen, camera, and microphone,
+        transcribes everything on-device with WhisperKit, and optionally lets you share recordings via a
+        self-hosted Cloudflare Worker. Pure Swift and SwiftUI. No Electron.
+    </p>
+
+    <h2>Features</h2>
+
+    <div class="features">
+        <div class="feature">
+            <div class="label">Recording</div>
+            <div class="title">Screen + Camera + Mic</div>
+            <div class="desc">Full retina HEVC capture with picture-in-picture webcam, region selection, and system audio.</div>
+        </div>
+        <div class="feature">
+            <div class="label">Recording</div>
+            <div class="title">Drawing Tools</div>
+            <div class="desc">Annotate your screen live during recording. Freehand, arrows, shapes, and text.</div>
+        </div>
+        <div class="feature">
+            <div class="label">Transcription</div>
+            <div class="title">On-Device via WhisperKit</div>
+            <div class="desc">Fully offline transcription powered by distil-large-v3. Nothing leaves your machine.</div>
+        </div>
+        <div class="feature">
+            <div class="label">Editing</div>
+            <div class="title">Trim, Cut, Stitch</div>
+            <div class="desc">Trim start/end, cut sections from the middle, or stitch multiple recordings together.</div>
+        </div>
+        <div class="feature">
+            <div class="label">Editing</div>
+            <div class="title">Filler Word Removal</div>
+            <div class="desc">Automatically detect and cut "um", "uh", "like", and other filler words from transcribed recordings.</div>
+        </div>
+        <div class="feature">
+            <div class="label">Organization</div>
+            <div class="title">Folders, Tags, Search</div>
+            <div class="desc">Color-coded folders and tags. Full-text search across titles and transcripts.</div>
+        </div>
+        <div class="feature">
+            <div class="label">Sharing</div>
+            <div class="title">Share via Link</div>
+            <div class="desc">Upload to your own Cloudflare infrastructure. Clean share page with synced transcript and captions.</div>
+        </div>
+        <div class="feature">
+            <div class="label">Sharing</div>
+            <div class="title">Comments, Reactions, Password</div>
+            <div class="desc">Timestamped comments, emoji reactions, optional password protection, and CTA buttons.</div>
+        </div>
+    </div>
+
+    <h2>Share Page</h2>
+    <p>
+        Each shared recording gets a minimal dark page with video playback, live captions, a clickable synced
+        transcript, emoji reactions at timestamps, and timestamped comments. Optional password protection
+        and CTA button overlays. Links auto-expire after 30 days.
+    </p>
+
+    <h2>Cloud Sharing is Free</h2>
+    <p>
+        Voom's sharing infrastructure runs entirely within Cloudflare's free tier. No credit card required.
+    </p>
+
+    <table class="tier-table">
+        <thead>
+            <tr>
+                <th>Service</th>
+                <th>Purpose</th>
+                <th>Free Tier</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Workers</td>
+                <td>API + share page</td>
+                <td>100,000 requests/day</td>
+            </tr>
+            <tr>
+                <td>R2</td>
+                <td>Video storage</td>
+                <td>10 GB, zero egress</td>
+            </tr>
+            <tr>
+                <td>D1</td>
+                <td>Metadata &amp; transcripts</td>
+                <td>5 GB, 5M reads/day</td>
+            </tr>
+            <tr>
+                <td>Cron</td>
+                <td>Daily cleanup</td>
+                <td>Included</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p style="margin-top: 16px;">
+        Set up in under a minute with the in-app self-host wizard, or deploy manually with <code>wrangler</code>.
+    </p>
+
+    <h2>Voom vs Loom</h2>
+
+    <table class="comparison">
+        <thead>
+            <tr>
+                <th></th>
+                <th class="voom-col">Voom</th>
+                <th>Loom</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Price</td>
+                <td class="voom-col">Free, forever</td>
+                <td>$15/user/month</td>
+            </tr>
+            <tr>
+                <td>Privacy</td>
+                <td class="voom-col">Your Mac + your infra</td>
+                <td>Loom's servers</td>
+            </tr>
+            <tr>
+                <td>Transcription</td>
+                <td class="voom-col">On-device</td>
+                <td>Cloud-based</td>
+            </tr>
+            <tr>
+                <td>App size</td>
+                <td class="voom-col">~5 MB</td>
+                <td>~200 MB</td>
+            </tr>
+            <tr>
+                <td>Drawing tools</td>
+                <td class="yes">Yes</td>
+                <td>Paid</td>
+            </tr>
+            <tr>
+                <td>Trim / cut / stitch</td>
+                <td class="yes">Yes</td>
+                <td>Trim only (paid)</td>
+            </tr>
+            <tr>
+                <td>Filler word removal</td>
+                <td class="yes">Yes</td>
+                <td>Paid</td>
+            </tr>
+            <tr>
+                <td>Password protection</td>
+                <td class="yes">Yes</td>
+                <td>Paid</td>
+            </tr>
+            <tr>
+                <td>Recording limit</td>
+                <td class="voom-col">Unlimited</td>
+                <td>5 min (free)</td>
+            </tr>
+            <tr>
+                <td>Open source</td>
+                <td class="yes">Yes (MIT)</td>
+                <td class="no">No</td>
+            </tr>
+            <tr>
+                <td>Offline recording</td>
+                <td class="yes">Yes</td>
+                <td class="no">No</td>
+            </tr>
+            <tr>
+                <td>Electron</td>
+                <td class="voom-col">No &mdash; native Swift</td>
+                <td>Yes</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Stack</h2>
+
+    <div class="stack">
+        <div class="stack-item">
+            <span class="key">App</span>
+            <span class="val">Swift, SwiftUI, ScreenCaptureKit</span>
+        </div>
+        <div class="stack-item">
+            <span class="key">Encoding</span>
+            <span class="val">HEVC (VideoToolbox)</span>
+        </div>
+        <div class="stack-item">
+            <span class="key">Transcription</span>
+            <span class="val">WhisperKit (Apple Silicon)</span>
+        </div>
+        <div class="stack-item">
+            <span class="key">Storage</span>
+            <span class="val">Cloudflare R2</span>
+        </div>
+        <div class="stack-item">
+            <span class="key">Database</span>
+            <span class="val">Cloudflare D1 (SQLite)</span>
+        </div>
+        <div class="stack-item">
+            <span class="key">API</span>
+            <span class="val">Cloudflare Workers</span>
+        </div>
+    </div>
+
+    <h2>Getting Started</h2>
+    <p>
+        <a href="https://github.com/aritropaul/voom/releases/latest">Download the latest release</a>,
+        or build from source:
+    </p>
+
+    <pre><code>git clone https://github.com/aritropaul/voom.git
+cd voom/Voom
+open Voom.xcodeproj</code></pre>
+
+    <p>
+        Requires macOS 15+. Cloud sharing is optional &mdash; Voom works entirely offline.
+    </p>
+
+</div>
+
+<footer>
+    <a href="mailto:voom@aritro.xyz">Contact</a>
+    <div class="links">
+        <a href="https://github.com/aritropaul/voom">GitHub</a>
+        <a href="https://github.com/aritropaul/voom/releases/latest">Releases</a>
+    </div>
+</footer>
+
+</body>
+</html>
