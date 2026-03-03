@@ -50,7 +50,7 @@
         }
 
         main, header {
-            max-width: 640px;
+            max-width: 600px;
             padding: 0 30px;
         }
 
@@ -134,9 +134,12 @@
 
         h2 {
             font-size: 13px;
-            text-align: center;
+            text-align: left;
             margin: 48px 0 0 0;
             padding-bottom: 12px;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         h2 strong {
@@ -153,7 +156,7 @@
             padding: 0 1.5em;
             border-bottom: 1px solid var(--border-subtle);
             position: relative;
-            max-width: 640px;
+            max-width: 600px;
             margin: 0 auto;
         }
 
@@ -200,7 +203,8 @@
             font-weight: 500;
             margin: 24px 0 0 0;
             font-size: 13px;
-            padding: 4px 0 6px 0;
+            padding: 4px 0 4px 0;
+            color: var(--title);
         }
 
         .content-list article h3.intro {
@@ -280,22 +284,19 @@
         }
 
         footer {
-            max-width: 640px;
-            padding: 24px 24px 80px 24px;
+            max-width: 600px;
+            padding: 24px 30px 80px 30px;
             margin: 0 auto;
             margin-top: 3rem;
             display: flex;
             justify-content: space-between;
             border-top: 1px solid var(--border-subtle);
+            font-size: 13px;
         }
 
         footer div {
             display: flex;
             gap: 1em;
-        }
-
-        footer {
-            font-size: 13px;
         }
 
         footer a {
@@ -312,8 +313,8 @@
             margin: -2px -4px;
         }
 
-        @media (max-width: 640px) {
-            header h1 { font-size: 14px; }
+        @media (max-width: 600px) {
+            main, header, nav, footer { padding-left: 20px; padding-right: 20px; }
         }
     </style>
 </head>
