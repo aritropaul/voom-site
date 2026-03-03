@@ -18,29 +18,20 @@
             --background: #191919;
             --background-secondary: #141414;
             --background-card: #232323;
-            --secondary-background: rgba(255, 255, 255, 0.04);
             --title: rgba(255, 255, 255, 0.92);
             --text: rgba(255, 255, 255, 0.60);
-            --strong-text: rgba(255, 255, 255, 0.92);
             --text-tertiary: rgba(255, 255, 255, 0.40);
             --text-quaternary: rgba(255, 255, 255, 0.25);
             --border-subtle: rgba(255, 255, 255, 0.08);
             --border-medium: rgba(255, 255, 255, 0.12);
             --tint: #FF3B31;
             --tint-bg: rgba(255, 59, 49, 0.20);
-            --green: #40C773;
-            --orange: #FF9E0A;
             --font: "Inter", "Inter Display", -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
-        * {
-            box-sizing: border-box;
-            text-size-adjust: none;
-        }
+        * { box-sizing: border-box; text-size-adjust: none; margin: 0; padding: 0; }
 
         html, body {
-            margin: 0;
-            padding: 0;
             background: var(--background);
             color: var(--text);
             font-family: var(--font);
@@ -49,281 +40,164 @@
             overflow-x: hidden;
         }
 
-        main, header {
+        /* Nav */
+        nav {
             max-width: 600px;
-            padding: 0 30px;
-        }
-
-        main {
             margin: 0 auto;
+            padding: 0 30px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-subtle);
         }
+        nav a {
+            color: var(--text-tertiary);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 4px 6px;
+            border-radius: 4px;
+            margin: 0 2px;
+        }
+        nav a:hover { background: var(--tint-bg); color: var(--title); }
+        .nav-logo { display: flex; align-items: center; }
+        .nav-logo img { height: 24px; width: auto; border-radius: 22%; }
+        .nav-links { display: flex; }
 
+        /* Hero */
         header {
-            margin: 5em auto 0 auto;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 60px 30px 0;
             text-align: center;
         }
-
-        header img {
-            height: 96px;
-            width: auto;
-            border-radius: 22%;
-        }
-
-        header h1 {
-            font-size: 14px;
-            font-weight: 500;
-            margin: 12px 0 0 0;
-        }
-
-        header p {
-            font-size: 13px;
-            margin: 8px 0 0 0;
-            line-height: 1.4;
-        }
-
-        header p.sub {
-            font-size: 13px;
-            color: var(--text-tertiary);
-        }
-
+        header img { height: 80px; width: auto; border-radius: 22%; }
+        header h1 { font-size: 14px; font-weight: 500; color: var(--title); margin: 12px 0 0; }
+        header p { font-size: 13px; color: var(--text); margin: 6px 0 0; }
         header .buttons {
-            margin-top: 2em;
+            margin-top: 20px;
             display: flex;
-            gap: 12px;
+            gap: 8px;
             justify-content: center;
-            flex-wrap: wrap;
         }
-
         header .buttons a {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 8px 16px;
+            padding: 6px 16px;
             border-radius: 8px;
             font-size: 13px;
-            font-weight: 600;
+            font-weight: 500;
             text-decoration: none;
-            transition: opacity 0.2s;
         }
-
-        header .buttons a.primary {
-            background: var(--tint);
-            color: #fff;
-        }
-
-        header .buttons a.primary:hover {
-            opacity: 0.9;
-        }
-
+        header .buttons a.primary { background: var(--tint); color: #fff; }
+        header .buttons a.primary:hover { opacity: 0.9; }
         header .buttons a.secondary {
             background: var(--background-card);
             color: var(--text);
             border: 1px solid var(--border-subtle);
         }
+        header .buttons a.secondary:hover { color: var(--title); border-color: var(--border-medium); }
 
-        header .buttons a.secondary:hover {
-            color: var(--strong-text);
-            border-color: var(--border-medium);
+        /* Screenshot */
+        .screenshot-wrap {
+            max-width: 900px;
+            margin: 40px auto 0;
+            padding: 0 30px;
         }
+        .screenshot-wrap img { width: 100%; height: auto; }
 
-        h1, h2, h3 {
-            color: var(--title);
-            font-weight: 500;
-            font-family: var(--font);
-        }
-
-        h2 {
-            font-size: 13px;
-            text-align: left;
-            margin: 48px 0 0 0;
-            padding-bottom: 12px;
-            color: var(--text-tertiary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        h2 strong {
-            font-weight: inherit;
-            color: var(--tint);
-        }
-
-        nav {
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 4em;
-            padding: 0 1.5em;
-            border-bottom: 1px solid var(--border-subtle);
-            position: relative;
+        /* Main */
+        main {
             max-width: 600px;
             margin: 0 auto;
+            padding: 0 30px 80px;
         }
 
-        nav a {
-            color: var(--text);
-            text-decoration: none;
+        /* Section */
+        .section { margin-top: 40px; }
+        .section-label {
             font-size: 13px;
             font-weight: 500;
-            transition: color 0.2s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-            padding: 4px 6px;
-            border-radius: 4px;
-            margin: 0 4px;
+            color: var(--text-tertiary);
+            margin-bottom: 8px;
         }
 
-        nav a:hover {
-            background: var(--tint-bg);
+        /* Card */
+        .card {
+            background: var(--background-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 16px;
         }
 
-        .nav-logo {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-        }
-
-        .nav-logo img {
-            height: 2em;
-            width: auto;
-            border-radius: 22%;
-        }
-
-        .nav-links {
-            display: flex;
-        }
-
-        .content-list {
-            padding: 0;
-            margin: 1em 0;
-        }
-
-        .content-list article h3 {
-            font-family: var(--font);
-            font-weight: 500;
-            margin: 24px 0 0 0;
+        .card h3 {
             font-size: 13px;
-            padding: 4px 0 4px 0;
+            font-weight: 500;
             color: var(--title);
+            margin: 0;
         }
-
-        .content-list article h3.intro {
-            margin-top: 0;
-        }
-
-        .content-list article p {
+        .card h3 + p { margin-top: 4px; }
+        .card p {
+            font-size: 13px;
             font-weight: 400;
-            font-size: 13px;
-            margin: 6px 0 12px 0;
-            line-height: 1.6;
             color: var(--text);
+            margin: 0;
+            line-height: 1.6;
+        }
+        .card p strong { font-weight: 500; color: var(--title); }
+
+        .card-divider {
+            border: none;
+            border-top: 1px solid var(--border-subtle);
+            margin: 12px 0;
         }
 
-        .content-list article p strong {
-            font-weight: 500;
-            color: var(--title);
-        }
+        /* Links */
+        a.tint { color: var(--tint); text-decoration: none; font-weight: 500; }
+        a.tint:hover { text-decoration: underline; }
 
-        .content-list article img {
-            position: relative;
-            width: 100%;
-            height: auto;
-            border-radius: 5px;
-        }
-
-        .content-list article img.wide {
-            --width: min(100vw, calc(100% + 300px));
-            --content: calc(100%);
-            width: var(--width);
-            left: calc((var(--content) - var(--width)) * 0.5);
-        }
-
-        .content-list article img.borderless {
-            box-shadow: none;
-            border-radius: 0;
-        }
-
-        p a, main a {
-            color: var(--tint);
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        p a:hover {
-            background-color: var(--tint);
-            color: var(--background);
-            border-radius: 0.3em;
-            padding: 2px 4px;
-            margin: -2px -4px;
-        }
-
-        p > code {
-            border-radius: 4px;
-            padding: 2px 4px;
-            background: var(--secondary-background);
-            font-size: 13px;
+        /* Code */
+        code {
             font-family: "SF Mono", "Fira Code", monospace;
-        }
-
-        pre:has(code) {
-            position: relative;
             font-size: 13px;
+            background: rgba(255,255,255,0.04);
+            padding: 1px 4px;
+            border-radius: 4px;
+        }
+        pre {
             background: var(--background-secondary);
             border: 1px solid var(--border-subtle);
             border-radius: 8px;
             padding: 12px 16px;
             overflow-x: auto;
-            margin: 12px 0;
+            margin: 8px 0 0;
+            font-size: 13px;
             line-height: 1.6;
         }
+        pre code { background: none; padding: 0; }
 
-        pre code {
-            background: none;
-            padding: 0;
-            font-family: "SF Mono", "Fira Code", monospace;
-        }
-
+        /* Footer */
         footer {
             max-width: 600px;
-            padding: 24px 30px 80px 30px;
             margin: 0 auto;
-            margin-top: 3rem;
+            padding: 24px 30px 80px;
             display: flex;
             justify-content: space-between;
             border-top: 1px solid var(--border-subtle);
             font-size: 13px;
         }
-
-        footer div {
-            display: flex;
-            gap: 1em;
-        }
-
-        footer a {
-            color: var(--tint);
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        footer a:hover {
-            background-color: var(--tint);
-            color: var(--background);
-            border-radius: 0.3em;
-            padding: 2px 4px;
-            margin: -2px -4px;
-        }
+        footer div { display: flex; gap: 12px; }
+        footer a { color: var(--tint); text-decoration: none; font-weight: 500; }
+        footer a:hover { text-decoration: underline; }
 
         @media (max-width: 600px) {
-            main, header, nav, footer { padding-left: 20px; padding-right: 20px; }
+            nav, header, main, footer, .screenshot-wrap { padding-left: 16px; padding-right: 16px; }
         }
     </style>
 </head>
 <body>
 
 <nav>
-    <a href="/" class="nav-logo">
-        <img src="icon.png" alt="Voom">
-    </a>
+    <a href="/" class="nav-logo"><img src="icon.png" alt="Voom"></a>
     <div class="nav-links">
         <a href="https://github.com/aritropaul/voom">GitHub</a>
         <a href="https://github.com/aritropaul/voom/releases/latest">Download</a>
@@ -335,98 +209,98 @@
     <img src="icon.png" alt="Voom">
     <h1>Voom</h1>
     <p>Record your screen, camera, and mic. Get a shareable link in seconds.</p>
-    <p class="sub">Open-source Loom alternative for macOS. No Electron. No cloud dependency. No subscription.</p>
     <div class="buttons">
         <a href="https://github.com/aritropaul/voom/releases/latest" class="primary">Download</a>
         <a href="https://github.com/aritropaul/voom" class="secondary">View Source</a>
     </div>
 </header>
 
+<div class="screenshot-wrap">
+    <img src="screenshot.png" alt="Voom app">
+</div>
+
 <main>
 
-    <div class="content-list">
-
-        <article>
-            <img src="screenshot.png" alt="Voom app" class="wide borderless">
-        </article>
-
-        <h2>What it does</h2>
-
-        <article>
-            <h3 class="intro">Screen + Camera + Mic</h3>
-            <p>Voom captures any display at <strong>full retina resolution</strong> using HEVC hardware encoding. Record your screen with a picture-in-picture webcam overlay, or record camera-only. System audio and microphone are captured simultaneously.</p>
-
-            <h3>Region Selection</h3>
-            <p>Drag to select a portion of your screen to record. Or capture an entire display. Your choice.</p>
-
+    <div class="section">
+        <div class="section-label">Recording</div>
+        <div class="card">
+            <h3>Screen + Camera + Mic</h3>
+            <p>Full retina HEVC capture with picture-in-picture webcam, region selection, and system audio.</p>
+            <hr class="card-divider">
             <h3>Drawing Tools</h3>
-            <p>Annotate your screen <strong>live during recording</strong>. Freehand, arrows, shapes, and text. Everything is captured in the final video.</p>
+            <p>Annotate your screen <strong>live during recording</strong>. Freehand, arrows, shapes, and text.</p>
+            <hr class="card-divider">
+            <h3>Pause / Resume</h3>
+            <p>Pause and resume recording without splitting files.</p>
+        </div>
+    </div>
 
+    <div class="section">
+        <div class="section-label">Post-recording</div>
+        <div class="card">
             <h3>On-Device Transcription</h3>
-            <p>Powered by <strong>WhisperKit</strong> (distil-large-v3), running entirely on your Mac. Nothing leaves your machine. Transcription starts automatically when recording stops.</p>
-
+            <p>Powered by <strong>WhisperKit</strong> (distil-large-v3), running entirely on your Mac. Nothing leaves your machine.</p>
+            <hr class="card-divider">
             <h3>Trim, Cut, Stitch</h3>
-            <p>Trim the start and end. Cut sections from the middle. Stitch multiple recordings together. All non-destructive, all local.</p>
-
+            <p>Trim the start and end. Cut sections from the middle. Stitch multiple recordings together.</p>
+            <hr class="card-divider">
             <h3>Filler Word Removal</h3>
-            <p>Automatically detect and remove <strong>"um", "uh", "like"</strong> and other filler words from transcribed recordings. One click.</p>
-
+            <p>Detect and remove <strong>"um", "uh", "like"</strong> from transcribed recordings. One click.</p>
+            <hr class="card-divider">
             <h3>Folders, Tags, Search</h3>
-            <p>Organize recordings into <strong>color-coded folders</strong> and tag them. Full-text search across titles and transcripts.</p>
-        </article>
+            <p>Color-coded folders and tags. Full-text search across titles and transcripts.</p>
+        </div>
+    </div>
 
-        <h2>Share via link</h2>
-
-        <article>
-            <h3 class="intro">Your Own Infrastructure</h3>
-            <p>Upload recordings to your own <strong>Cloudflare account</strong> and get a clean share page with video playback, live captions, and a clickable synced transcript. Links auto-expire after 30 days.</p>
-
+    <div class="section">
+        <div class="section-label">Cloud Sharing</div>
+        <div class="card">
+            <h3>Share via Link</h3>
+            <p>Upload to your own <strong>Cloudflare account</strong>. Clean share page with video, live captions, and synced transcript.</p>
+            <hr class="card-divider">
             <h3>Comments and Reactions</h3>
-            <p>Viewers can leave <strong>timestamped comments</strong> and emoji reactions tied to specific moments in your recording.</p>
-
+            <p><strong>Timestamped comments</strong> and emoji reactions tied to specific moments.</p>
+            <hr class="card-divider">
             <h3>Password Protection</h3>
-            <p>Optionally require a password to view shared recordings. Add a <strong>call-to-action button</strong> overlay that appears when the video ends.</p>
-
+            <p>Optionally require a password. Add a <strong>call-to-action button</strong> when the video ends.</p>
+            <hr class="card-divider">
             <h3>View Notifications</h3>
             <p>Get a macOS notification when someone watches your recording.</p>
-        </article>
+        </div>
+    </div>
 
-        <h2>Free, <strong>forever</strong></h2>
-
-        <article>
-            <h3 class="intro">No Credit Card Required</h3>
-            <p>Voom's sharing infrastructure runs entirely within <strong>Cloudflare's free tier</strong>. Workers handle the API and share page (100k requests/day). R2 stores your videos (10 GB, zero egress fees). D1 stores metadata and transcripts (5 GB). Daily cron triggers clean up expired links.</p>
-
-            <p>Set up in under a minute with the <strong>in-app self-host wizard</strong>, or deploy manually with <code>wrangler</code>. You'd only need a paid plan ($5/mo) if you somehow exceed 100k requests a day.</p>
-
+    <div class="section">
+        <div class="section-label">Pricing</div>
+        <div class="card">
+            <h3>Free, forever</h3>
+            <p>Sharing runs entirely within <strong>Cloudflare's free tier</strong>. Workers (100k req/day), R2 (10 GB, zero egress), D1 (5 GB). No credit card required.</p>
+            <hr class="card-divider">
             <h3>Voom vs Loom</h3>
-            <p><strong>Voom is free, forever</strong> &mdash; Loom is $15/user/month. Voom is 5 MB &mdash; Loom is 200 MB of Electron. Voom transcribes on-device &mdash; Loom uploads everything to their servers. Voom records unlimited length &mdash; Loom caps you at 5 minutes on free. Voom gives you drawing tools, trim, cut, stitch, filler word removal, and password protection &mdash; Loom charges extra for all of those.</p>
+            <p><strong>Voom is free</strong> &mdash; Loom is $15/user/month. Voom is 5 MB &mdash; Loom is 200 MB of Electron. Voom transcribes on-device &mdash; Loom uploads to their servers. Drawing tools, trim, cut, stitch, filler word removal, password protection &mdash; all free. Loom charges extra.</p>
+            <hr class="card-divider">
+            <p>Open source under MIT. <a href="https://github.com/aritropaul/voom" class="tint">Fork it, it's yours.</a></p>
+        </div>
+    </div>
 
-            <p>Voom is <strong>open source</strong> under MIT. Fork it, it's yours.</p>
-        </article>
+    <div class="section">
+        <div class="section-label">Stack</div>
+        <div class="card">
+            <h3>Native macOS</h3>
+            <p><strong>Swift and SwiftUI</strong> with ScreenCaptureKit, VideoToolbox for HEVC encoding, WhisperKit for transcription. Cloud sharing on <strong>Cloudflare Workers + R2 + D1</strong>. No Electron. No ffmpeg. ~5 MB.</p>
+        </div>
+    </div>
 
-        <h2>Stack</h2>
-
-        <article>
-            <h3 class="intro">Native macOS</h3>
-            <p><strong>Swift and SwiftUI</strong> with ScreenCaptureKit for capture, VideoToolbox for HEVC hardware encoding, and WhisperKit for on-device transcription on Apple Silicon. Cloud sharing runs on <strong>Cloudflare Workers + R2 + D1</strong>.</p>
-
-            <p>No Electron. No ffmpeg. No runtime dependencies. The app is ~5 MB.</p>
-        </article>
-
-        <h2>Get Started</h2>
-
-        <article>
-            <h3 class="intro">Download or Build</h3>
-            <p><a href="https://github.com/aritropaul/voom/releases/latest">Download the latest release</a>, or build from source:</p>
-
+    <div class="section">
+        <div class="section-label">Get Started</div>
+        <div class="card">
+            <h3>Download or Build</h3>
+            <p><a href="https://github.com/aritropaul/voom/releases/latest" class="tint">Download the latest release</a>, or build from source:</p>
             <pre><code>git clone https://github.com/aritropaul/voom.git
 cd voom/Voom
 open Voom.xcodeproj</code></pre>
-
+            <hr class="card-divider">
             <p>Requires macOS 15+. Cloud sharing is optional &mdash; Voom works entirely offline.</p>
-        </article>
-
+        </div>
     </div>
 
 </main>
