@@ -1,0 +1,332 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Icon from "../components/Icon.astro";
+import Reveal from "../components/react/Reveal.tsx";
+
+const repo = "https://github.com/aritropaul/voom";
+const license = "https://github.com/aritropaul/voom/blob/main/LICENSE";
+const contact = "mailto:voom@aritro.xyz";
+
+const localCards = [
+  {
+    icon: "shield",
+    title: "Recording stays on your Mac",
+    desc: "Screen capture, webcam feed, and microphone input are processed entirely on-device. There are no Voom servers — nothing to send to, nothing to leak from.",
+  },
+  {
+    icon: "wave",
+    title: "Transcription runs on-device",
+    desc: "Voom uses WhisperKit (distil-large-v3) on Apple Silicon's Neural Engine. Your audio is never uploaded — not to us, not to any transcription service.",
+  },
+  {
+    icon: "pen",
+    title: "Editing happens locally",
+    desc: "Trimming, cutting, stitching, filler-word removal, tagging, and search all run on your machine. The finished file lives in the folder you choose.",
+  },
+];
+
+const negatives = [
+  "No accounts or sign-in of any kind.",
+  "No telemetry or usage reporting.",
+  "No analytics SDKs embedded in the binary.",
+  "No crash reporter that phones home.",
+  "No advertisements.",
+  "No selling, sharing, or brokering of data.",
+  "No third-party transcription service.",
+  "No Voom servers at all — there are none.",
+];
+---
+
+<Layout
+  title="Voom Privacy — nothing leaves your Mac"
+  description="Voom collects no personal data, has no servers, and includes no telemetry. Recording, transcription, and editing all happen locally on your Mac."
+>
+  <!-- ================= HERO ================= -->
+  <section class="relative overflow-hidden">
+    <div class="glow glow-hero" style="opacity:0.45"></div>
+    <div class="bg-grid"></div>
+
+    <div class="container-narrow relative z-10 pt-16 pb-10 md:pt-24">
+      <Reveal client:load>
+        <p class="eyebrow">Privacy</p>
+      </Reveal>
+
+      <Reveal client:load delay={0.08}>
+        <h1
+          class="mt-5 text-[clamp(2.4rem,6.5vw,4.4rem)] font-semibold leading-[1.03] tracking-[-0.036em] text-grad"
+        >
+          Privacy by design,<br />not by policy.
+        </h1>
+      </Reveal>
+
+      <Reveal client:load delay={0.16}>
+        <p class="section-lead mt-6">
+          Voom was built so that your recordings, your voice, and your data
+          never have to leave your machine. That's not a setting you toggle — it's
+          the architecture.
+        </p>
+      </Reveal>
+    </div>
+  </section>
+
+  <!-- ================= WHAT STAYS ON YOUR MAC ================= -->
+  <section class="section border-t" style="border-color: var(--color-hair)">
+    <div class="container-x">
+      <Reveal client:visible>
+        <p class="eyebrow">What stays on your Mac</p>
+        <h2 class="section-title mt-3">Everything.</h2>
+        <p class="section-lead mt-4">
+          Recording, transcription, and editing are all fully local. There are no
+          Voom servers involved at any step.
+        </p>
+      </Reveal>
+
+      <div class="mt-12 grid gap-4 md:grid-cols-3">
+        {localCards.map((card, i) => (
+          <Reveal client:visible delay={i * 0.08}>
+            <div class="card card-hover h-full">
+              <div
+                class="flex h-11 w-11 items-center justify-center rounded-xl"
+                style="background: var(--color-tint-soft); color: var(--color-tint-bright)"
+              >
+                <Icon name={card.icon} class="h-[22px] w-[22px]" />
+              </div>
+              <h3
+                class="mt-4 text-[16px] font-medium"
+                style="color: var(--color-title)"
+              >
+                {card.title}
+              </h3>
+              <p
+                class="mt-2 text-[14px] leading-relaxed"
+                style="color: var(--color-body)"
+              >
+                {card.desc}
+              </p>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WHAT WE DON'T DO ================= -->
+  <section class="section border-t" style="border-color: var(--color-hair)">
+    <div class="container-narrow">
+      <Reveal client:visible>
+        <p class="eyebrow">What we don't do</p>
+        <h2 class="section-title mt-3">A complete list.</h2>
+        <p class="section-lead mt-4">
+          These aren't aspirational promises. They're structural facts about how
+          Voom is built.
+        </p>
+      </Reveal>
+
+      <Reveal client:visible delay={0.08}>
+        <div
+          class="mt-10 overflow-hidden rounded-2xl border"
+          style="border-color: var(--color-hair); background: var(--color-surface)"
+        >
+          {negatives.map((item, i) => (
+            <div
+              class={`flex items-start gap-4 px-6 py-4 ${i !== 0 ? "border-t" : ""}`}
+              style={i !== 0 ? "border-color: var(--color-hair)" : ""}
+            >
+              <div
+                class="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full"
+                style="background: rgba(255,255,255,0.05); color: var(--color-muted)"
+              >
+                <Icon name="x" class="h-[13px] w-[13px]" />
+              </div>
+              <p class="text-[14px] leading-relaxed" style="color: var(--color-body)">
+                {item}
+              </p>
+            </div>
+          ))}
+        </div>
+      </Reveal>
+    </div>
+  </section>
+
+  <!-- ================= WHEN YOU CHOOSE TO SHARE ================= -->
+  <section
+    class="section relative overflow-hidden border-t"
+    style="border-color: var(--color-hair)"
+  >
+    <div
+      class="glow glow-soft"
+      style="width:560px;height:380px;left:50%;top:0;transform:translateX(-50%);opacity:0.3"
+    ></div>
+    <div class="container-narrow relative z-10">
+      <Reveal client:visible>
+        <p class="eyebrow">When you choose to share</p>
+        <h2 class="section-title mt-3">Your Cloudflare.<br />Not ours.</h2>
+        <p class="section-lead mt-4">
+          Sharing is completely optional and always per-recording. When you
+          create a share link, the video is uploaded to <em>your</em> Cloudflare
+          account — Workers, R2, and D1 — never to any Voom-owned infrastructure.
+          We don't have one.
+        </p>
+      </Reveal>
+
+      <div class="mt-10 grid gap-4 sm:grid-cols-2">
+        {[
+          {
+            icon: "cloud",
+            title: "Your account, your storage",
+            desc: "Voom uses Cloudflare's free tier (Workers 100k req/day, R2 10 GB, D1 5 GB — no credit card needed). The credentials are yours; the data is yours.",
+          },
+          {
+            icon: "lock",
+            title: "Always opt-in",
+            desc: "Nothing is uploaded automatically. You decide to share on a per-recording basis, every time.",
+          },
+          {
+            icon: "folder",
+            title: "You control retention",
+            desc: "Delete a recording from Cloudflare at any time from inside Voom or directly from your Cloudflare dashboard.",
+          },
+          {
+            icon: "shield",
+            title: "Password protection",
+            desc: "Lock any share link behind a password. Access requires it — no exceptions.",
+          },
+        ].map((item, i) => (
+          <Reveal client:visible delay={i * 0.08}>
+            <div class="card card-hover h-full">
+              <div
+                class="flex h-11 w-11 items-center justify-center rounded-xl"
+                style="background: var(--color-tint-soft); color: var(--color-tint-bright)"
+              >
+                <Icon name={item.icon} class="h-[22px] w-[22px]" />
+              </div>
+              <h3
+                class="mt-4 text-[16px] font-medium"
+                style="color: var(--color-title)"
+              >
+                {item.title}
+              </h3>
+              <p
+                class="mt-2 text-[14px] leading-relaxed"
+                style="color: var(--color-body)"
+              >
+                {item.desc}
+              </p>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= VERIFY IT YOURSELF ================= -->
+  <section class="section border-t" style="border-color: var(--color-hair)">
+    <div class="container-narrow">
+      <div class="grid items-center gap-10 md:grid-cols-2">
+        <Reveal client:visible>
+          <p class="eyebrow">Verify it yourself</p>
+          <h2 class="section-title mt-3">Open source<br />under MIT.</h2>
+          <p class="section-lead mt-4">
+            Every line of Voom is public. Read the Swift source, audit the
+            entitlements, check what network calls are made. The license permits
+            it and the repo is there.
+          </p>
+          <div class="mt-7 flex flex-wrap gap-3">
+            <a
+              href={repo}
+              target="_blank"
+              rel="noopener"
+              class="btn btn-primary"
+            >
+              <Icon name="github" class="h-[18px] w-[18px]" /> Read the source
+            </a>
+            <a
+              href={license}
+              target="_blank"
+              rel="noopener"
+              class="btn btn-ghost"
+            >
+              <Icon name="check" class="h-[17px] w-[17px]" /> MIT License
+            </a>
+          </div>
+        </Reveal>
+
+        <Reveal client:visible delay={0.1}>
+          <div>
+            <p class="mb-3 text-[14px]" style="color: var(--color-muted)">
+              Clone and build it yourself in three commands.
+            </p>
+            <pre class="code-block"><code>git clone https://github.com/aritropaul/voom.git
+cd voom/Voom
+open Voom.xcodeproj</code></pre>
+            <p class="mt-4 text-[13px]" style="color: var(--color-faint)">
+              Requires macOS 15+. The binary you run is the code you read.
+            </p>
+          </div>
+        </Reveal>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PLAIN STATEMENT ================= -->
+  <section class="section border-t" style="border-color: var(--color-hair)">
+    <div class="container-narrow">
+      <Reveal client:visible>
+        <div
+          class="rounded-2xl border p-8 md:p-12"
+          style="background: var(--color-surface); border-color: var(--color-hair); box-shadow: inset 0 1px 0 rgba(255,255,255,0.05)"
+        >
+          <p
+            class="text-[clamp(1.1rem,2.2vw,1.35rem)] font-medium leading-[1.55] tracking-[-0.018em]"
+            style="color: var(--color-title)"
+          >
+            Voom has no user database, no servers, and collects no personal
+            data. There is nothing for us to lose, leak, or sell.
+          </p>
+          <hr class="hairline my-7" />
+          <p class="text-[14px] leading-relaxed" style="color: var(--color-muted)">
+            Questions about privacy or want to discuss something specific?
+            Reach out at{" "}
+            <a
+              href={contact}
+              class="link-tint"
+            >
+              voom@aritro.xyz
+            </a>
+            .
+          </p>
+        </div>
+      </Reveal>
+    </div>
+  </section>
+
+  <!-- ================= FINAL CTA ================= -->
+  <section class="relative overflow-hidden border-t" style="border-color: var(--color-hair)">
+    <div class="glow glow-hero" style="opacity:0.45;top:-40px"></div>
+    <div class="container-x relative z-10 py-24 text-center md:py-32">
+      <Reveal client:visible>
+        <h2
+          class="mx-auto max-w-[20ch] text-[clamp(2rem,5vw,3.4rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-grad"
+        >
+          Try Voom. Nothing leaves your Mac.
+        </h2>
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <a href="/download" class="btn btn-primary btn-lg">
+            <Icon name="download" class="h-[18px] w-[18px]" /> Download for Mac
+          </a>
+          <a
+            href={repo}
+            target="_blank"
+            rel="noopener"
+            class="btn btn-ghost btn-lg"
+          >
+            <Icon name="github" class="h-[18px] w-[18px]" /> Star on GitHub
+          </a>
+        </div>
+        <p class="mt-5 font-mono text-[12px]" style="color: var(--color-faint)">
+          Free forever · macOS 15+ · No account required
+        </p>
+      </Reveal>
+    </div>
+  </section>
+</Layout>

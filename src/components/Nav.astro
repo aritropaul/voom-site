@@ -1,0 +1,86 @@
+---
+import Icon from "./Icon.astro";
+
+const links = [
+  { href: "/download", label: "Download" },
+  { href: "/pricing", label: "Pricing" },
+  { href: "/loom-alternative", label: "vs Loom" },
+  { href: "/self-host", label: "Self-host" },
+  { href: "/faq", label: "FAQ" },
+];
+const repo = "https://github.com/aritropaul/voom";
+const path = (Astro.url.pathname.replace(/\/+$/, "") || "/");
+---
+<header id="nav" class="fixed inset-x-0 top-0 z-50 transition-colors duration-300">
+  <div class="container-x">
+    <div id="nav-inner" class="mt-3 flex h-14 items-center justify-between rounded-2xl border border-transparent px-3 pl-4 transition-all duration-300">
+      <a href="/" class="flex items-center gap-2.5" aria-label="Voom home">
+        <img src="/icon.png" alt="" width="28" height="28" class="rounded-[8px]" style="box-shadow: 0 2px 12px -2px rgba(255,59,49,0.5)" />
+        <span class="text-[15px] font-semibold tracking-tight" style="color: var(--color-title)">Voom</span>
+      </a>
+
+      <nav class="hidden items-center gap-0.5 md:flex">
+        {links.map((l) => (
+          <a
+            href={l.href}
+            class="rounded-lg px-3 py-2 text-[13.5px] font-medium transition-colors"
+            style={`color: ${path === l.href ? "var(--color-title)" : "var(--color-muted)"}`}
+            data-navlink
+          >{l.label}</a>
+        ))}
+      </nav>
+
+      <div class="flex items-center gap-2">
+        <a href={repo} target="_blank" rel="noopener" aria-label="GitHub" class="hidden h-9 w-9 items-center justify-center rounded-lg transition-colors sm:flex" style="color: var(--color-muted)">
+          <Icon name="github" class="h-[18px] w-[18px]" />
+        </a>
+        <a href="/download" class="btn btn-primary btn-sm">
+          <Icon name="apple" class="h-4 w-4" />
+          Download
+        </a>
+        <button id="nav-toggle" class="flex h-9 w-9 items-center justify-center rounded-lg md:hidden" style="color: var(--color-title)" aria-label="Menu" aria-expanded="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- mobile menu -->
+    <div id="nav-menu" class="hidden md:hidden">
+      <div class="mt-2 grid gap-1 rounded-2xl border p-2" style="background: var(--color-surface); border-color: var(--color-hair)">
+        {links.map((l) => (
+          <a href={l.href} class="rounded-lg px-3 py-2.5 text-[14px] font-medium" style={`color: ${path === l.href ? "var(--color-tint-bright)" : "var(--color-body)"}`}>{l.label}</a>
+        ))}
+        <a href={repo} target="_blank" rel="noopener" class="rounded-lg px-3 py-2.5 text-[14px] font-medium" style="color: var(--color-body)">GitHub</a>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="h-[72px]"></div>
+
+<script is:inline>
+  (function () {
+    const inner = document.getElementById("nav-inner");
+    const onScroll = () => {
+      if (window.scrollY > 8) {
+        inner.style.background = "rgba(12,12,15,0.72)";
+        inner.style.backdropFilter = "blur(14px) saturate(160%)";
+        inner.style.borderColor = "var(--color-hair)";
+        inner.style.boxShadow = "0 8px 30px -16px rgba(0,0,0,0.8)";
+      } else {
+        inner.style.background = "transparent";
+        inner.style.backdropFilter = "none";
+        inner.style.borderColor = "transparent";
+        inner.style.boxShadow = "none";
+      }
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    const toggle = document.getElementById("nav-toggle");
+    const menu = document.getElementById("nav-menu");
+    toggle?.addEventListener("click", () => {
+      const nowHidden = menu.classList.toggle("hidden");
+      toggle.setAttribute("aria-expanded", String(!nowHidden));
+    });
+  })();
+</script>

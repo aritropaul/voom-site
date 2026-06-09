@@ -1,0 +1,355 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Icon from "../components/Icon.astro";
+import Reveal from "../components/react/Reveal.tsx";
+
+const repo = "https://github.com/aritropaul/voom";
+const releases = `${repo}/releases/latest`;
+const readme = `${repo}#readme`;
+
+const cfPieces = [
+  {
+    icon: "server",
+    name: "Workers",
+    what: "Serves the share API and the public share page — fast, edge-deployed, zero cold starts.",
+    limit: "100 k requests / day",
+  },
+  {
+    icon: "cloud",
+    name: "R2",
+    what: "Object storage for your video files. Uploads go directly to your bucket; playback streams from it.",
+    limit: "10 GB storage · zero egress fees",
+  },
+  {
+    icon: "layers",
+    name: "D1",
+    what: "SQLite-on-the-edge for video metadata, timestamped comments, and emoji reactions.",
+    limit: "5 GB storage",
+  },
+];
+
+const whyPoints = [
+  {
+    icon: "lock",
+    title: "You own the data",
+    desc: "Videos and metadata live in your Cloudflare account. Voom the company has no access to your recordings, ever.",
+  },
+  {
+    icon: "bolt",
+    title: "Zero egress cost",
+    desc: "Cloudflare R2 charges nothing for data transfer out. Every view of your shared video is free bandwidth.",
+  },
+  {
+    icon: "globe",
+    title: "Serve from your own domain",
+    desc: "Point a Workers route at any domain you control. Your share links live under your brand, not ours.",
+  },
+  {
+    icon: "shield",
+    title: "No Voom server in the path",
+    desc: "When someone watches your video the request never touches infrastructure we operate. It's a straight line from viewer to your Cloudflare account.",
+  },
+];
+
+const steps = [
+  {
+    n: "01",
+    title: "Create a free Cloudflare account",
+    desc: "Sign up at cloudflare.com — no credit card required. The Workers, R2, and D1 services you need are all on the free tier.",
+  },
+  {
+    n: "02",
+    title: "Deploy the Voom sharing stack",
+    desc: "Follow the setup guide in the repo README. It walks you through creating the R2 bucket, D1 database, and deploying the Workers script to your account.",
+  },
+  {
+    n: "03",
+    title: "Connect your credentials in Voom",
+    desc: "Open Voom → Settings → Sharing. Paste in the credentials from your Cloudflare dashboard. Voom stores them locally on your Mac.",
+  },
+  {
+    n: "04",
+    title: "Hit share — it's yours",
+    desc: "Every link you generate goes to infrastructure you control. The share page includes live captions, timestamped comments, emoji reactions, password protection, and a view notification.",
+  },
+];
+---
+
+<Layout
+  title="Self-host Voom sharing on Cloudflare"
+  description="Voom's optional sharing deploys to your own Cloudflare account — Workers, R2, and D1, all on the free tier. Your videos, your domain, your rules."
+>
+  <!-- ================= HERO ================= -->
+  <section class="relative overflow-hidden">
+    <div class="glow glow-hero"></div>
+    <div class="bg-grid"></div>
+
+    <div class="container-x relative z-10 pt-16 pb-12 md:pt-24 md:pb-16">
+      <Reveal client:load>
+        <p class="eyebrow">Self-host</p>
+        <h1
+          class="mt-5 max-w-[22ch] text-[clamp(2.4rem,6vw,4.4rem)] font-semibold leading-[1.04] tracking-[-0.036em] text-grad"
+        >
+          Sharing that runs on your infrastructure.
+        </h1>
+        <p class="section-lead mt-6 max-w-[50ch]">
+          Optional cloud sharing deploys to your own Cloudflare account — your
+          videos, your domain, your rules. No Voom server ever sits in the
+          path.
+        </p>
+        <div class="mt-8 flex flex-wrap items-center gap-3">
+          <a
+            href={readme}
+            target="_blank"
+            rel="noopener"
+            class="btn btn-ghost"
+          >
+            <Icon name="github" class="h-[17px] w-[17px]" />
+            View the setup guide
+          </a>
+          <a href="/download" class="btn btn-primary">
+            <Icon name="apple" class="h-[17px] w-[17px]" />
+            Download for Mac
+          </a>
+        </div>
+        <p class="mt-5 font-mono text-[12px]" style="color: var(--color-faint)">
+          All free tier · no credit card · macOS 15+
+        </p>
+      </Reveal>
+    </div>
+  </section>
+
+  <!-- ================= THE ARCHITECTURE ================= -->
+  <section class="section border-t" style="border-color: var(--color-hair)">
+    <div class="container-x">
+      <Reveal client:visible className="max-w-[640px]">
+        <p class="eyebrow">The architecture</p>
+        <h2 class="section-title mt-3">
+          Three Cloudflare primitives.<br class="hidden sm:block" /> All free.
+        </h2>
+        <p class="section-lead mt-4">
+          The sharing stack is built on Workers, R2, and D1 — Cloudflare's
+          edge-native compute, storage, and database. Every piece runs within
+          their free tier. No credit card required.
+        </p>
+      </Reveal>
+
+      <div class="mt-12 grid gap-4 md:grid-cols-3">
+        {cfPieces.map((piece, i) => (
+          <Reveal client:visible delay={i * 0.08}>
+            <div class="card card-hover h-full">
+              <div
+                class="flex h-11 w-11 items-center justify-center rounded-xl"
+                style="background: var(--color-tint-soft); color: var(--color-tint-bright)"
+              >
+                <Icon name={piece.icon} class="h-[22px] w-[22px]" />
+              </div>
+              <h3
+                class="mt-4 text-[16px] font-medium"
+                style="color: var(--color-title)"
+              >
+                {piece.name}
+              </h3>
+              <p
+                class="mt-2 text-[14px] leading-relaxed"
+                style="color: var(--color-body)"
+              >
+                {piece.what}
+              </p>
+              <p
+                class="mt-4 inline-flex items-center gap-1.5 font-mono text-[12px]"
+                style="color: var(--color-tint-bright)"
+              >
+                <span
+                  class="inline-block h-1.5 w-1.5 rounded-full"
+                  style="background: var(--color-tint); box-shadow: 0 0 6px var(--color-tint)"
+                ></span>
+                {piece.limit}
+              </p>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+
+      <Reveal client:visible delay={0.28}>
+        <p class="mt-6 text-[13px]" style="color: var(--color-faint)">
+          Limits are Cloudflare's published free-tier figures. See
+          <a
+            href="https://developers.cloudflare.com/workers/platform/limits/"
+            target="_blank"
+            rel="noopener"
+            class="link-tint"
+          >
+            developers.cloudflare.com
+          </a>{" "}
+          for current terms.
+        </p>
+      </Reveal>
+    </div>
+  </section>
+
+  <!-- ================= SET IT UP ================= -->
+  <section class="section border-t" style="border-color: var(--color-hair)">
+    <div class="container-x">
+      <div class="grid gap-14 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
+        <!-- left: intro + code -->
+        <Reveal client:visible>
+          <p class="eyebrow">Set it up</p>
+          <h2 class="section-title mt-3">Four steps to your own share link.</h2>
+          <p class="section-lead mt-4">
+            High-level: create a Cloudflare account, deploy the stack from the
+            repo, paste your credentials into Voom, and share. The README has
+            exact, step-by-step instructions.
+          </p>
+
+          <div class="mt-8">
+            <p class="mb-3 text-[14px]" style="color: var(--color-muted)">
+              Start by cloning the repo:
+            </p>
+            <pre class="code-block"><code>git clone https://github.com/aritropaul/voom.git</code></pre>
+            <p class="mt-4 text-[13.5px]" style="color: var(--color-faint)">
+              Then follow the{" "}
+              <a
+                href={readme}
+                target="_blank"
+                rel="noopener"
+                class="link-tint"
+              >
+                setup guide in the README
+              </a>{" "}
+              for the complete Cloudflare deployment walkthrough.
+            </p>
+          </div>
+        </Reveal>
+
+        <!-- right: numbered steps -->
+        <div class="flex flex-col gap-3">
+          {steps.map((s, i) => (
+            <Reveal client:visible delay={i * 0.08}>
+              <div class="card h-full">
+                <div class="flex items-start gap-4">
+                  <span
+                    class="mt-0.5 shrink-0 font-mono text-[13px]"
+                    style="color: var(--color-tint-bright)"
+                  >
+                    {s.n}
+                  </span>
+                  <div>
+                    <h3
+                      class="text-[15px] font-medium leading-snug"
+                      style="color: var(--color-title)"
+                    >
+                      {s.title}
+                    </h3>
+                    <p
+                      class="mt-1.5 text-[13.5px] leading-relaxed"
+                      style="color: var(--color-body)"
+                    >
+                      {s.desc}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WHY YOUR OWN INFRA ================= -->
+  <section
+    class="section relative overflow-hidden border-t"
+    style="border-color: var(--color-hair)"
+  >
+    <div
+      class="glow glow-soft"
+      style="width:700px;height:440px;left:50%;top:0;transform:translateX(-50%);opacity:0.35"
+    ></div>
+    <div class="container-x relative z-10">
+      <Reveal client:visible className="max-w-[640px]">
+        <p class="eyebrow">Why your own infrastructure</p>
+        <h2 class="section-title mt-3">
+          No middleman.<br class="hidden sm:block" /> Not even us.
+        </h2>
+        <p class="section-lead mt-4">
+          Most screen-recording tools route your files through their servers —
+          it's how they stay in control. Voom's sharing model is different by
+          design.
+        </p>
+      </Reveal>
+
+      <div class="mt-12 grid gap-4 sm:grid-cols-2">
+        {whyPoints.map((pt, i) => (
+          <Reveal client:visible delay={i * 0.08}>
+            <div class="card card-hover h-full">
+              <div
+                class="flex h-11 w-11 items-center justify-center rounded-xl"
+                style="background: var(--color-tint-soft); color: var(--color-tint-bright)"
+              >
+                <Icon name={pt.icon} class="h-[22px] w-[22px]" />
+              </div>
+              <h3
+                class="mt-4 text-[16px] font-medium"
+                style="color: var(--color-title)"
+              >
+                {pt.title}
+              </h3>
+              <p
+                class="mt-2 text-[14px] leading-relaxed"
+                style="color: var(--color-body)"
+              >
+                {pt.desc}
+              </p>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CLOSING CTA ================= -->
+  <section
+    class="relative overflow-hidden border-t"
+    style="border-color: var(--color-hair)"
+  >
+    <div class="glow glow-hero" style="opacity:0.5;top:-40px"></div>
+    <div class="container-x relative z-10 py-24 text-center md:py-32">
+      <Reveal client:visible>
+        <h2
+          class="mx-auto max-w-[20ch] text-[clamp(2rem,5vw,3.4rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-grad"
+        >
+          Your links. Your storage. Your call.
+        </h2>
+        <p
+          class="mx-auto mt-5 max-w-[46ch] text-[clamp(1rem,2vw,1.1rem)] leading-relaxed"
+          style="color: var(--color-body)"
+        >
+          Set up the sharing stack once and every video you share lives on
+          infrastructure you own — for free.
+        </p>
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <a
+            href={readme}
+            target="_blank"
+            rel="noopener"
+            class="btn btn-ghost btn-lg"
+          >
+            <Icon name="github" class="h-[18px] w-[18px]" />
+            View the setup guide
+          </a>
+          <a href="/download" class="btn btn-primary btn-lg">
+            <Icon name="apple" class="h-[18px] w-[18px]" />
+            Download for Mac
+          </a>
+        </div>
+        <p
+          class="mt-5 font-mono text-[12px]"
+          style="color: var(--color-faint)"
+        >
+          Free forever · MIT · macOS 15+ · No account required
+        </p>
+      </Reveal>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,425 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Icon from "../components/Icon.astro";
+import Reveal from "../components/react/Reveal.tsx";
+
+const repo = "https://github.com/aritropaul/voom";
+const releases = `${repo}/releases/latest`;
+
+const tableRows = [
+  {
+    feat: "Price",
+    voom: "Free, forever",
+    loom: "$18 per user / mo",
+    voomIcon: null,
+    loomIcon: null,
+  },
+  {
+    feat: "Source code",
+    voom: "Open (MIT)",
+    loom: "Proprietary",
+    voomIcon: null,
+    loomIcon: null,
+  },
+  {
+    feat: "The app",
+    voom: "Native Swift · ~5 MB",
+    loom: "Electron · ~200 MB",
+    voomIcon: null,
+    loomIcon: null,
+  },
+  {
+    feat: "Transcription",
+    voom: "On-device (WhisperKit)",
+    loom: "Uploaded to the cloud",
+    voomIcon: null,
+    loomIcon: null,
+  },
+  {
+    feat: "Where recordings live",
+    voom: "Your Cloudflare or local",
+    loom: "Loom's servers",
+    voomIcon: null,
+    loomIcon: null,
+  },
+  {
+    feat: "Account to record",
+    voom: null,
+    loom: null,
+    voomIcon: "x",
+    loomIcon: "check",
+    voomIconMeaning: "Not required",
+    loomIconMeaning: "Required",
+  },
+  {
+    feat: "Drawing while recording",
+    voom: "Live",
+    loom: "Limited",
+    voomIcon: null,
+    loomIcon: null,
+  },
+  {
+    feat: "Trim · cut · stitch",
+    voom: null,
+    loom: "Limited",
+    voomIcon: "check",
+    loomIcon: null,
+    voomIconMeaning: "Included",
+  },
+  {
+    feat: "Filler-word removal",
+    voom: null,
+    loom: "—",
+    voomIcon: "check",
+    loomIcon: null,
+    voomIconMeaning: "Included",
+  },
+  {
+    feat: "Password protection",
+    voom: null,
+    loom: "Paid plans",
+    voomIcon: "check",
+    loomIcon: null,
+    voomIconMeaning: "Included",
+  },
+  {
+    feat: "Telemetry",
+    voom: "None",
+    loom: "Yes",
+    voomIcon: null,
+    loomIcon: null,
+  },
+  {
+    feat: "Works offline",
+    voom: "Fully",
+    loom: "No",
+    voomIcon: null,
+    loomIcon: null,
+  },
+];
+
+const winCards = [
+  {
+    icon: "heart",
+    title: "Price & ownership",
+    desc: "Voom is MIT-licensed and costs nothing — no trial, no tier, no per-seat bill. You own the binary, the recordings, and the sharing infrastructure.",
+  },
+  {
+    icon: "shield",
+    title: "On-device privacy",
+    desc: "Recording, editing, and transcription all run on your Mac. WhisperKit never sends your audio anywhere, and there are no Voom servers to breach.",
+  },
+  {
+    icon: "github",
+    title: "Open source",
+    desc: "The full Swift codebase is on GitHub under the MIT license. Audit it, fork it, or contribute a fix — no permission required.",
+  },
+  {
+    icon: "server",
+    title: "Your own storage",
+    desc: "When you share a recording it goes to your own Cloudflare account — R2 storage you own, Workers you control, data you can delete.",
+  },
+];
+---
+
+<Layout
+  title="Voom vs Loom — the open-source, privacy-first alternative"
+  description="Voom is a free, open-source, native macOS screen recorder. Compare Voom vs Loom: price, privacy, transcription, storage, and more."
+>
+  <!-- ================= HERO ================= -->
+  <section class="relative overflow-hidden">
+    <div class="glow glow-hero"></div>
+    <div class="bg-grid"></div>
+
+    <div class="container-x relative z-10 pt-16 pb-12 md:pt-24 md:pb-16">
+      <Reveal client:load className="flex justify-start">
+        <p class="eyebrow">Voom vs Loom</p>
+      </Reveal>
+
+      <Reveal client:load delay={0.08}>
+        <h1
+          class="mt-5 max-w-[22ch] text-[clamp(2.4rem,6vw,4.2rem)] font-semibold leading-[1.04] tracking-[-0.036em] text-grad"
+        >
+          The open-source Loom alternative for macOS.
+        </h1>
+      </Reveal>
+
+      <Reveal client:load delay={0.16}>
+        <p class="section-lead mt-6 max-w-[54ch]">
+          Loom is an excellent async video platform — polished, widely integrated, and trusted by
+          many teams. Voom is for people who want the same async-video workflow but{" "}
+          <span style="color: var(--color-title)">free, native, private, and owned</span>: no
+          per-seat bill, no cloud transcription, no vendor lock-in.
+        </p>
+      </Reveal>
+
+      <Reveal client:load delay={0.24}>
+        <div class="mt-9 flex flex-wrap items-center gap-3">
+          <a href="/download" class="btn btn-primary btn-lg">
+            <Icon name="apple" class="h-[18px] w-[18px]" /> Download for Mac
+          </a>
+          <a href={repo} target="_blank" rel="noopener" class="btn btn-ghost btn-lg">
+            <Icon name="github" class="h-[18px] w-[18px]" /> View source
+          </a>
+        </div>
+        <p class="mt-5 font-mono text-[12px] tracking-wide" style="color: var(--color-faint)">
+          Free forever · macOS 15+ · Apple Silicon + Intel · ~5 MB
+        </p>
+      </Reveal>
+    </div>
+  </section>
+
+  <!-- ================= COMPARISON TABLE ================= -->
+  <section class="section border-t" style="border-color: var(--color-hair)">
+    <div class="container-x">
+      <Reveal client:visible className="max-w-[640px]">
+        <p class="eyebrow">Side by side</p>
+        <h2 class="section-title mt-3">How Voom and Loom compare.</h2>
+        <p class="section-lead mt-4">
+          Facts only — no editorialising. Pick what matters to your workflow.
+        </p>
+      </Reveal>
+
+      <Reveal client:visible delay={0.1}>
+        <div class="mt-10 overflow-x-auto">
+          <div
+            class="min-w-[520px] overflow-hidden rounded-2xl border"
+            style="border-color: var(--color-hair); background: var(--color-surface)"
+          >
+            <!-- Header row -->
+            <div
+              class="grid text-[12px] font-mono font-medium uppercase tracking-widest"
+              style="grid-template-columns: 1.4fr 1fr 1fr; background: var(--color-base-2); color: var(--color-faint)"
+            >
+              <div class="px-5 py-4"></div>
+              <div
+                class="px-5 py-4 text-center"
+                style="color: var(--color-tint-bright); background: var(--color-tint-soft)"
+              >
+                Voom
+              </div>
+              <div class="px-5 py-4 text-center">Loom</div>
+            </div>
+
+            <!-- Data rows -->
+            {
+              tableRows.map((row) => (
+                <div
+                  class="grid border-t text-[13.5px]"
+                  style="grid-template-columns: 1.4fr 1fr 1fr; border-color: var(--color-hair)"
+                >
+                  <div class="px-5 py-4" style="color: var(--color-muted)">
+                    {row.feat}
+                  </div>
+
+                  <!-- Voom cell — highlighted -->
+                  <div
+                    class="flex items-center justify-center px-5 py-4 font-medium"
+                    style="background: var(--color-tint-soft); color: var(--color-title)"
+                  >
+                    {row.voomIcon === "check" ? (
+                      <span
+                        class="inline-flex items-center gap-1.5"
+                        style="color: var(--color-tint-bright)"
+                      >
+                        <Icon name="check" class="h-[16px] w-[16px]" />
+                        {row.voomIconMeaning && (
+                          <span class="hidden sm:inline text-[12.5px]">
+                            {row.voomIconMeaning}
+                          </span>
+                        )}
+                      </span>
+                    ) : row.voomIcon === "x" ? (
+                      <span
+                        class="inline-flex items-center gap-1.5"
+                        style="color: var(--color-tint-bright)"
+                      >
+                        <Icon name="x" class="h-[15px] w-[15px]" />
+                        {row.voomIconMeaning && (
+                          <span class="hidden sm:inline text-[12.5px]">
+                            {row.voomIconMeaning}
+                          </span>
+                        )}
+                      </span>
+                    ) : (
+                      <span class="text-center">{row.voom}</span>
+                    )}
+                  </div>
+
+                  <!-- Loom cell -->
+                  <div
+                    class="flex items-center justify-center px-5 py-4"
+                    style="color: var(--color-body)"
+                  >
+                    {row.loomIcon === "check" ? (
+                      <Icon name="check" class="h-[16px] w-[16px]" />
+                    ) : row.loomIcon === "x" ? (
+                      <Icon name="x" class="h-[15px] w-[15px]" />
+                    ) : (
+                      <span class="text-center">{row.loom}</span>
+                    )}
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </Reveal>
+    </div>
+  </section>
+
+  <!-- ================= WHERE VOOM WINS ================= -->
+  <section class="section border-t relative overflow-hidden" style="border-color: var(--color-hair)">
+    <div class="glow glow-soft" style="width:680px;height:420px;left:50%;top:0;transform:translateX(-50%);opacity:0.35"></div>
+    <div class="container-x relative z-10">
+      <Reveal client:visible className="max-w-[640px]">
+        <p class="eyebrow">Where Voom wins</p>
+        <h2 class="section-title mt-3">Four dimensions that matter.</h2>
+        <p class="section-lead mt-4">
+          These aren't marketing checkboxes. They're the reasons people switch.
+        </p>
+      </Reveal>
+
+      <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          winCards.map((card, i) => (
+            <Reveal client:visible delay={i * 0.08}>
+              <div class="card card-hover h-full">
+                <div
+                  class="flex h-11 w-11 items-center justify-center rounded-xl"
+                  style="background: var(--color-tint-soft); color: var(--color-tint-bright)"
+                >
+                  <Icon name={card.icon} class="h-[22px] w-[22px]" />
+                </div>
+                <h3 class="mt-4 text-[16px] font-medium" style="color: var(--color-title)">
+                  {card.title}
+                </h3>
+                <p class="mt-2 text-[14px] leading-relaxed" style="color: var(--color-body)">
+                  {card.desc}
+                </p>
+              </div>
+            </Reveal>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WHICH ONE IS FOR YOU ================= -->
+  <section class="section border-t" style="border-color: var(--color-hair)">
+    <div class="container-x">
+      <Reveal client:visible className="max-w-[640px]">
+        <p class="eyebrow">Which one is for you?</p>
+        <h2 class="section-title mt-3">An honest recommendation.</h2>
+        <p class="section-lead mt-4">
+          Both are good tools. The right one depends on what you actually care about.
+        </p>
+      </Reveal>
+
+      <div class="mt-10 grid gap-4 md:grid-cols-2">
+        <!-- Stick with Loom -->
+        <Reveal client:visible delay={0}>
+          <div class="card h-full" style="border-color: var(--color-hair-2)">
+            <div class="mb-5 flex items-center gap-3">
+              <div
+                class="flex h-10 w-10 items-center justify-center rounded-xl"
+                style="background: rgba(255,255,255,0.06); color: var(--color-muted)"
+              >
+                <Icon name="layers" class="h-5 w-5" />
+              </div>
+              <h3 class="text-[17px] font-semibold" style="color: var(--color-title)">
+                Stick with Loom if&hellip;
+              </h3>
+            </div>
+            <ul class="space-y-3 text-[14px] leading-relaxed" style="color: var(--color-body)">
+              <li class="flex items-start gap-2.5">
+                <Icon name="check" class="mt-0.5 h-4 w-4 shrink-0" style="color: var(--color-muted)" />
+                You rely on the Loom browser extension to record from Chrome or Firefox.
+              </li>
+              <li class="flex items-start gap-2.5">
+                <Icon name="check" class="mt-0.5 h-4 w-4 shrink-0" style="color: var(--color-muted)" />
+                Your team is embedded in the Atlassian ecosystem (Jira, Confluence) and already uses Loom's native integrations.
+              </li>
+              <li class="flex items-start gap-2.5">
+                <Icon name="check" class="mt-0.5 h-4 w-4 shrink-0" style="color: var(--color-muted)" />
+                Privacy of recorded content isn't a concern and you're happy paying for centrally hosted storage.
+              </li>
+              <li class="flex items-start gap-2.5">
+                <Icon name="check" class="mt-0.5 h-4 w-4 shrink-0" style="color: var(--color-muted)" />
+                You need Windows or Linux support — Voom is macOS only.
+              </li>
+            </ul>
+          </div>
+        </Reveal>
+
+        <!-- Choose Voom -->
+        <Reveal client:visible delay={0.08}>
+          <div
+            class="card card-hover h-full"
+            style="border-color: rgba(255,59,49,0.28); box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 0 0 1px rgba(255,59,49,0.1)"
+          >
+            <div class="mb-5 flex items-center gap-3">
+              <div
+                class="flex h-10 w-10 items-center justify-center rounded-xl"
+                style="background: var(--color-tint-soft); color: var(--color-tint-bright)"
+              >
+                <Icon name="bolt" class="h-5 w-5" />
+              </div>
+              <h3 class="text-[17px] font-semibold" style="color: var(--color-title)">
+                Choose Voom if&hellip;
+              </h3>
+            </div>
+            <ul class="space-y-3 text-[14px] leading-relaxed" style="color: var(--color-body)">
+              <li class="flex items-start gap-2.5">
+                <Icon name="check" class="mt-0.5 h-4 w-4 shrink-0" style="color: var(--color-tint-bright)" />
+                You want a free, native, open-source tool that runs on macOS with no ongoing cost.
+              </li>
+              <li class="flex items-start gap-2.5">
+                <Icon name="check" class="mt-0.5 h-4 w-4 shrink-0" style="color: var(--color-tint-bright)" />
+                You handle sensitive footage — legal, medical, financial, customer — and transcription must never leave your machine.
+              </li>
+              <li class="flex items-start gap-2.5">
+                <Icon name="check" class="mt-0.5 h-4 w-4 shrink-0" style="color: var(--color-tint-bright)" />
+                You want to own your video archive on storage you control, not pay an ongoing subscription to access your own recordings.
+              </li>
+              <li class="flex items-start gap-2.5">
+                <Icon name="check" class="mt-0.5 h-4 w-4 shrink-0" style="color: var(--color-tint-bright)" />
+                You care about the code — want to read it, audit it, fork it, or build on top of it.
+              </li>
+            </ul>
+          </div>
+        </Reveal>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CLOSING CTA ================= -->
+  <section class="relative overflow-hidden border-t" style="border-color: var(--color-hair)">
+    <div class="glow glow-hero" style="opacity:0.5;top:-40px"></div>
+    <div class="container-x relative z-10 py-24 text-center md:py-32">
+      <Reveal client:visible>
+        <p class="eyebrow mb-5">Ready to switch?</p>
+        <h2
+          class="mx-auto max-w-[20ch] text-[clamp(2rem,5vw,3.4rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-grad"
+        >
+          Try Voom. It's free, forever.
+        </h2>
+        <p class="section-lead mx-auto mt-5 text-center">
+          Download the ~5 MB native app or read the full source on GitHub. No account, no
+          telemetry, no per-seat invoice.
+        </p>
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <a href="/download" class="btn btn-primary btn-lg">
+            <Icon name="download" class="h-[18px] w-[18px]" /> Download for Mac
+          </a>
+          <a href={repo} target="_blank" rel="noopener" class="btn btn-ghost btn-lg">
+            <Icon name="github" class="h-[18px] w-[18px]" /> View source
+          </a>
+        </div>
+        <p class="mt-5 font-mono text-[12px]" style="color: var(--color-faint)">
+          Free forever · macOS 15+ · Apple Silicon + Intel · MIT licensed
+        </p>
+      </Reveal>
+    </div>
+  </section>
+</Layout>

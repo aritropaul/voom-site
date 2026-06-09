@@ -1,0 +1,327 @@
+@import "tailwindcss";
+
+/* ========================================================================
+   VOOM DESIGN TOKENS
+   Dark, premium, jewel-toned. Voom's red (#FF3B31) + the iridescent crystal
+   icon's halo (warm pink + a cool violet/teal counter-glow). Canvas is pushed
+   deeper than the app's #191919 so the glows read on a marketing surface.
+   ===================================================================== */
+@theme {
+  --color-base: #08080a;
+  --color-base-2: #0c0c0f;
+  --color-surface: #131316;
+  --color-surface-2: #191920;
+
+  --color-hair: rgba(255, 255, 255, 0.08);
+  --color-hair-2: rgba(255, 255, 255, 0.14);
+
+  --color-title: rgba(255, 255, 255, 0.96);
+  --color-body: rgba(255, 255, 255, 0.60);
+  --color-muted: rgba(255, 255, 255, 0.42);
+  --color-faint: rgba(255, 255, 255, 0.26);
+
+  --color-tint: #ff3b31;
+  --color-tint-bright: #ff6457;
+  --color-tint-soft: rgba(255, 59, 49, 0.14);
+
+  /* iridescence — used only for atmosphere/glows, never for text/chrome */
+  --color-iris-pink: #ff7e8a;
+  --color-iris-violet: #7c8cff;
+  --color-iris-teal: #57e0d0;
+
+  --font-sans: "Geist", ui-sans-serif, -apple-system, BlinkMacSystemFont,
+    "SF Pro Display", system-ui, sans-serif;
+  --font-mono: "Geist Mono", "SF Mono", ui-monospace, "JetBrains Mono", monospace;
+
+  --radius-card: 18px;
+}
+
+/* ========================================================================
+   BASE
+   ===================================================================== */
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+  html {
+    background: var(--color-base);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-body);
+    background: var(--color-base);
+    overflow-x: hidden;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  h1, h2, h3, h4 {
+    color: var(--color-title);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1.08;
+  }
+  ::selection {
+    background: rgba(255, 59, 49, 0.32);
+    color: #fff;
+  }
+  a { color: inherit; }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: var(--color-base); }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 99px;
+    border: 2px solid var(--color-base);
+  }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.18); }
+}
+
+/* ========================================================================
+   COMPONENTS — reused across all 8 pages
+   ===================================================================== */
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-[1120px] px-5 md:px-8;
+  }
+  .container-narrow {
+    @apply mx-auto w-full max-w-[760px] px-5 md:px-8;
+  }
+
+  .eyebrow {
+    @apply font-mono text-[11px] font-medium uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-tint);
+  }
+
+  /* Buttons — cap.so-style full pills */
+  .btn {
+    @apply inline-flex select-none items-center justify-center gap-2 rounded-full text-[14px] font-medium transition-all duration-200;
+    height: 44px;
+    padding: 0 22px;
+    white-space: nowrap;
+  }
+  .btn-primary {
+    color: #fff;
+    background: linear-gradient(180deg, #ff5a4f 0%, #ff3b31 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.28),
+      0 10px 30px -10px rgba(255, 59, 49, 0.7);
+  }
+  .btn-primary:hover {
+    filter: brightness(1.07);
+    transform: translateY(-1px);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.3),
+      0 14px 36px -10px rgba(255, 59, 49, 0.8);
+  }
+  .btn-ghost {
+    color: var(--color-title);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--color-hair);
+    backdrop-filter: blur(10px);
+  }
+  .btn-ghost:hover {
+    background: rgba(255, 255, 255, 0.09);
+    border-color: var(--color-hair-2);
+    transform: translateY(-1px);
+  }
+  .btn-sm { height: 36px; padding: 0 16px; font-size: 13px; }
+  .btn-lg { height: 50px; padding: 0 28px; font-size: 15px; }
+
+  /* Cards — hairline + top inner highlight (Raycast technique) */
+  .card {
+    @apply transition-all duration-300;
+    border-radius: var(--radius-card);
+    padding: 24px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-hair);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+  .card-hover:hover {
+    border-color: var(--color-hair-2);
+    transform: translateY(-4px);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.08),
+      0 24px 48px -24px rgba(0, 0, 0, 0.7);
+  }
+
+  .pill {
+    @apply inline-flex items-center gap-2 rounded-full text-[12.5px];
+    padding: 6px 13px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--color-hair);
+    color: var(--color-muted);
+  }
+  .pill-tint {
+    background: var(--color-tint-soft);
+    border-color: rgba(255, 59, 49, 0.3);
+    color: var(--color-tint-bright);
+  }
+
+  .link-tint {
+    color: var(--color-tint-bright);
+    font-weight: 500;
+    transition: opacity 0.15s;
+  }
+  .link-tint:hover { opacity: 0.8; }
+
+  .section { padding-block: 88px; }
+  @media (min-width: 768px) { .section { padding-block: 120px; } }
+
+  .section-title {
+    @apply font-semibold;
+    font-size: clamp(1.9rem, 4vw, 2.85rem);
+  }
+  .section-lead {
+    color: var(--color-body);
+    font-size: clamp(1rem, 2vw, 1.125rem);
+    max-width: 48ch;
+  }
+
+  .hairline {
+    height: 1px;
+    border: 0;
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgba(255, 255, 255, 0.12) 50%,
+      transparent
+    );
+  }
+
+  /* Screenshot / window frame */
+  .shot {
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--color-surface);
+    border: 1px solid var(--color-hair);
+    box-shadow:
+      0 2px 4px rgba(0, 0, 0, 0.4),
+      0 12px 24px rgba(0, 0, 0, 0.35),
+      0 40px 80px -16px rgba(0, 0, 0, 0.75),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  /* code blocks */
+  .code-block {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.7;
+    background: var(--color-base-2);
+    border: 1px solid var(--color-hair);
+    border-radius: 12px;
+    padding: 16px 18px;
+    overflow-x: auto;
+    color: rgba(255, 255, 255, 0.78);
+  }
+}
+
+/* ========================================================================
+   UTILITIES — gradient text, masks
+   ===================================================================== */
+@layer utilities {
+  .text-grad {
+    background: linear-gradient(180deg, #ffffff 28%, rgba(255, 255, 255, 0.46) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .text-grad-tint {
+    background: linear-gradient(135deg, #ff8a7d 0%, #ff3b31 65%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .mask-fade-b {
+    -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 70%, transparent 100%);
+  }
+}
+
+/* ========================================================================
+   ATMOSPHERE — decorative classes (authored, always retained)
+   ===================================================================== */
+
+/* radial iridescent glow blob — echoes the crystal icon */
+.glow {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(70px);
+  opacity: 0.7;
+}
+.glow-hero {
+  width: min(900px, 90vw);
+  height: 520px;
+  left: 50%;
+  top: -120px;
+  transform: translateX(-50%);
+  background:
+    radial-gradient(40% 60% at 42% 40%, rgba(255, 59, 49, 0.5), transparent 70%),
+    radial-gradient(36% 50% at 64% 36%, rgba(255, 126, 138, 0.38), transparent 70%),
+    radial-gradient(46% 60% at 58% 64%, rgba(124, 140, 255, 0.24), transparent 72%),
+    radial-gradient(30% 44% at 30% 66%, rgba(87, 224, 208, 0.16), transparent 72%);
+  animation: glowpulse 7s ease-in-out infinite alternate;
+}
+.glow-soft {
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 59, 49, 0.28),
+    transparent 70%
+  );
+}
+
+/* dot grid with radial fade */
+.bg-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.11) 1px,
+    transparent 1px
+  );
+  background-size: 26px 26px;
+  -webkit-mask-image: radial-gradient(ellipse 65% 55% at 50% 28%, #000 25%, transparent 75%);
+  mask-image: radial-gradient(ellipse 65% 55% at 50% 28%, #000 25%, transparent 75%);
+}
+
+/* film grain overlay (whole page, fixed) */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+/* the float used under the hero shot (separated from JS tilt) */
+.floaty { animation: floaty 6s ease-in-out infinite; }
+
+@keyframes floaty {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+@keyframes glowpulse {
+  from { opacity: 0.55; }
+  to { opacity: 0.95; }
+}
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .floaty, .glow-hero { animation: none !important; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

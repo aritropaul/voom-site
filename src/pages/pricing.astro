@@ -1,0 +1,239 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Icon from "../components/Icon.astro";
+import Reveal from "../components/react/Reveal.tsx";
+
+const repo = "https://github.com/aritropaul/voom";
+
+const included = [
+  { icon: "record",   label: "Unlimited local recordings & editing" },
+  { icon: "camera",   label: "Screen + camera + mic capture" },
+  { icon: "pen",      label: "Live drawing tools" },
+  { icon: "wave",     label: "On-device transcription (WhisperKit)" },
+  { icon: "scissors", label: "Trim, cut & stitch" },
+  { icon: "sparkles", label: "Filler-word removal" },
+  { icon: "folder",   label: "Folders, tags & full-text search" },
+  { icon: "cloud",    label: "Optional cloud sharing on your own Cloudflare" },
+];
+
+const why = [
+  {
+    icon: "github",
+    title: "The app is open source",
+    desc: "There is no company, VC money, or SaaS infrastructure to fund. The entire codebase is on GitHub under the MIT license — anyone can read it, fork it, and ship it.",
+  },
+  {
+    icon: "cloud",
+    title: "Cloud sharing runs on YOUR Cloudflare",
+    desc: "When you share a recording, it goes to your own Cloudflare account — Workers (100k req/day), R2 (10 GB, zero egress), D1 (5 GB). All free tier. No credit card.",
+  },
+  {
+    icon: "server",
+    title: "There are no Voom servers",
+    desc: "Voom has nothing to host, nothing to operate, and nothing to pay for on the back end. No servers means no server bill — and therefore nothing to pass on to you.",
+  },
+];
+---
+
+<Layout
+  title="Voom Pricing — free, forever"
+  description="Voom is free and open source under the MIT license. No paid tier, no trial. Optional cloud sharing runs on Cloudflare's own free tier — on your account, not ours."
+>
+
+  <!-- ================= HERO ================= -->
+  <section class="relative overflow-hidden">
+    <div class="glow glow-hero" style="opacity:0.45"></div>
+    <div class="bg-grid"></div>
+
+    <div class="container-x relative z-10 pt-16 pb-14 text-center md:pt-24">
+      <Reveal client:load>
+        <p class="eyebrow">Pricing</p>
+      </Reveal>
+
+      <Reveal client:load delay={0.08}>
+        <h1
+          class="mx-auto mt-5 max-w-[18ch] text-[clamp(2.6rem,7.5vw,5rem)] font-semibold leading-[1.03] tracking-[-0.038em]"
+        >
+          <span class="text-grad-tint">Free.</span>
+          <span class="text-grad"> Forever. Not a trial.</span>
+        </h1>
+      </Reveal>
+
+      <Reveal client:load delay={0.16}>
+        <p class="section-lead mx-auto mt-6">
+          One plan, no credit card, no account. Voom is MIT-licensed software —
+          you own what you record.
+        </p>
+      </Reveal>
+    </div>
+  </section>
+
+  <!-- ================= PRICING CARD ================= -->
+  <section class="section border-t" style="border-color: var(--color-hair)">
+    <div class="container-x">
+      <Reveal client:visible>
+        <div class="card mx-auto max-w-[460px]" style="background: var(--color-surface); border-color: var(--color-hair-2)">
+
+          <!-- price -->
+          <div class="text-center">
+            <p
+              class="font-semibold leading-none tracking-tight"
+              style="font-size: clamp(3rem,8vw,4.5rem); color: var(--color-title)"
+            >
+              $0
+            </p>
+            <p class="mt-2 text-[14px] font-medium" style="color: var(--color-tint-bright)">
+              Free &amp; open source
+            </p>
+          </div>
+
+          <hr class="hairline my-6" />
+
+          <!-- checklist -->
+          <ul class="space-y-3">
+            {included.map((item) => (
+              <li class="flex items-center gap-3 text-[14px]" style="color: var(--color-body)">
+                <span
+                  class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg"
+                  style="background: var(--color-tint-soft); color: var(--color-tint-bright)"
+                >
+                  <Icon name={item.icon} class="h-4 w-4" />
+                </span>
+                {item.label}
+              </li>
+            ))}
+          </ul>
+
+          <hr class="hairline my-6" />
+
+          <!-- CTA -->
+          <a href="/download" class="btn btn-primary btn-lg w-full justify-center">
+            <Icon name="apple" class="h-[18px] w-[18px]" /> Download for Mac
+          </a>
+
+          <p class="mt-4 text-center text-[12.5px]" style="color: var(--color-faint)">
+            MIT licensed — fork it, it's yours.
+            <a
+              href="https://github.com/aritropaul/voom/blob/main/LICENSE"
+              target="_blank"
+              rel="noopener"
+              class="link-tint ml-1"
+            >
+              Read the license →
+            </a>
+          </p>
+        </div>
+      </Reveal>
+    </div>
+  </section>
+
+  <!-- ================= WHY IS IT FREE? ================= -->
+  <section class="section relative overflow-hidden border-t" style="border-color: var(--color-hair)">
+    <div class="glow glow-soft" style="width:720px;height:440px;left:50%;top:0;transform:translateX(-50%);opacity:0.35"></div>
+    <div class="container-x relative z-10">
+      <Reveal client:visible className="mx-auto max-w-[640px] text-center">
+        <p class="eyebrow">No catch</p>
+        <h2 class="section-title mt-3">How can it be free?</h2>
+        <p class="section-lead mx-auto mt-4">
+          Three honest reasons — not "free as in freemium," free as in there is genuinely nothing to charge you for.
+        </p>
+      </Reveal>
+
+      <div class="mt-12 grid gap-4 md:grid-cols-3">
+        {why.map((w, i) => (
+          <Reveal client:visible delay={i * 0.08}>
+            <div class="card card-hover h-full">
+              <div
+                class="flex h-11 w-11 items-center justify-center rounded-xl"
+                style="background: var(--color-tint-soft); color: var(--color-tint-bright)"
+              >
+                <Icon name={w.icon} class="h-[22px] w-[22px]" />
+              </div>
+              <h3 class="mt-4 text-[16px] font-medium" style="color: var(--color-title)">{w.title}</h3>
+              <p class="mt-2 text-[14px] leading-relaxed" style="color: var(--color-body)">{w.desc}</p>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= VS LOOM CALLOUT BAND ================= -->
+  <section class="border-t border-b" style="border-color: var(--color-hair); background: var(--color-base-2)">
+    <div class="container-x py-14 md:py-16">
+      <Reveal client:visible>
+        <div class="flex flex-col items-center justify-between gap-8 text-center md:flex-row md:text-left">
+
+          <div>
+            <p class="eyebrow mb-3">Voom vs Loom</p>
+            <div class="flex flex-wrap items-baseline gap-x-5 gap-y-2 md:flex-nowrap">
+              <div>
+                <p class="font-mono text-[13px]" style="color: var(--color-muted)">Loom</p>
+                <p
+                  class="mt-1 font-semibold leading-tight tracking-tight line-through"
+                  style="font-size: clamp(2rem,5vw,3rem); color: var(--color-muted)"
+                >
+                  $18
+                </p>
+                <p class="text-[13px]" style="color: var(--color-faint)">per user / month</p>
+              </div>
+
+              <div
+                class="hidden h-12 w-px md:block"
+                style="background: var(--color-hair)"
+              ></div>
+
+              <div>
+                <p class="font-mono text-[13px]" style="color: var(--color-tint-bright)">Voom</p>
+                <p
+                  class="mt-1 font-semibold leading-tight tracking-tight text-grad-tint"
+                  style="font-size: clamp(2rem,5vw,3rem)"
+                >
+                  $0
+                </p>
+                <p class="text-[13px]" style="color: var(--color-faint)">always</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="shrink-0">
+            <p class="mb-4 max-w-[34ch] text-[14px] leading-relaxed" style="color: var(--color-body)">
+              Same async video workflow. Native Swift instead of 200 MB of Electron.
+              On-device transcription. No account, no lock-in, no per-seat bill.
+            </p>
+            <a href="/loom-alternative" class="btn btn-ghost">
+              See the full comparison <Icon name="arrow" class="h-4 w-4" />
+            </a>
+          </div>
+
+        </div>
+      </Reveal>
+    </div>
+  </section>
+
+  <!-- ================= FINAL CTA ================= -->
+  <section class="relative overflow-hidden border-t" style="border-color: var(--color-hair)">
+    <div class="glow glow-hero" style="opacity:0.5;top:-40px"></div>
+    <div class="container-x relative z-10 py-24 text-center md:py-32">
+      <Reveal client:visible>
+        <h2
+          class="mx-auto max-w-[20ch] text-[clamp(2rem,5vw,3.4rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-grad"
+        >
+          Record your screen. Keep your money.
+        </h2>
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <a href="/download" class="btn btn-primary btn-lg">
+            <Icon name="download" class="h-[18px] w-[18px]" /> Download for Mac
+          </a>
+          <a href={repo} target="_blank" rel="noopener" class="btn btn-ghost btn-lg">
+            <Icon name="github" class="h-[18px] w-[18px]" /> Star on GitHub
+          </a>
+        </div>
+        <p class="mt-5 font-mono text-[12px]" style="color: var(--color-faint)">
+          Free forever · macOS 15+ · No account required
+        </p>
+      </Reveal>
+    </div>
+  </section>
+
+</Layout>

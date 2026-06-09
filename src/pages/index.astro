@@ -1,0 +1,306 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Icon from "../components/Icon.astro";
+import Reveal from "../components/react/Reveal.tsx";
+import HeroTitle from "../components/react/HeroTitle.tsx";
+import HeroShot from "../components/react/HeroShot.tsx";
+import FeatureTabs from "../components/react/FeatureTabs.tsx";
+import Faq from "../components/react/Faq.tsx";
+
+const repo = "https://github.com/aritropaul/voom";
+const releases = `${repo}/releases/latest`;
+
+const stats = [
+  { icon: "heart", label: "Free, forever" },
+  { icon: "bolt", label: "~5 MB native app" },
+  { icon: "wave", label: "On-device transcription" },
+  { icon: "check", label: "MIT licensed" },
+  { icon: "lock", label: "No account" },
+];
+
+const tabs = [
+  {
+    id: "capture",
+    label: "Capture",
+    features: [
+      { title: "Screen + camera + mic", desc: "Full-retina HEVC capture with a picture-in-picture webcam, region selection, and system audio." },
+      { title: "Draw while you record", desc: "Freehand, arrows, shapes, and text — annotate live on screen, no post-edit needed." },
+      { title: "Pause & resume", desc: "Stop and pick back up at any time without ever splitting a file." },
+      { title: "Window, region or display", desc: "Grab a single window, a custom region, or the whole display in one click." },
+    ],
+  },
+  {
+    id: "polish",
+    label: "Polish",
+    features: [
+      { title: "On-device transcription", desc: "WhisperKit (distil-large-v3) runs entirely on your Mac. Audio never leaves the machine." },
+      { title: "Trim, cut & stitch", desc: "Trim the ends, cut dead air from the middle, and stitch multiple takes into one." },
+      { title: "Filler-word removal", desc: "Detect and delete every “um”, “uh”, and “like” from a transcript in one pass." },
+      { title: "Folders, tags & search", desc: "Color-coded folders and full-text search across every title and transcript." },
+    ],
+  },
+  {
+    id: "share",
+    label: "Share",
+    features: [
+      { title: "Your own Cloudflare", desc: "Upload to your account — a clean share page with video, live captions, and synced transcript." },
+      { title: "Comments & reactions", desc: "Timestamped comments and emoji reactions tied to exact moments in the video." },
+      { title: "Password & end CTA", desc: "Lock a recording behind a password and add a call-to-action button when it ends." },
+      { title: "View notifications", desc: "Get a macOS notification the moment someone presses play on your recording." },
+    ],
+  },
+];
+
+const privacy = [
+  { icon: "shield", title: "Nothing leaves your Mac", desc: "Recording, editing, and transcription all happen locally. There are no Voom servers to leak." },
+  { icon: "lock", title: "No account, ever", desc: "Download it and record. No sign-up, no login, no email — not even to get started." },
+  { icon: "eye", title: "Zero telemetry", desc: "No analytics SDKs, no crash reporter phoning home. The binary you download is the whole product." },
+];
+
+const steps = [
+  { n: "01", title: "Record", desc: "Screen, camera, mic, and live drawing tools — all native, all instant. Pause and resume freely." },
+  { n: "02", title: "Refine", desc: "Trim, cut, and stitch. Remove filler words. Transcribe on-device with WhisperKit." },
+  { n: "03", title: "Share", desc: "Push to your own Cloudflare and send a clean link with captions, comments, and reactions." },
+];
+
+const compare = [
+  { feat: "Price", voom: "Free, forever", loom: "$18 / user / mo" },
+  { feat: "The app", voom: "Native Swift · ~5 MB", loom: "Electron · ~200 MB" },
+  { feat: "Transcription", voom: "On-device (WhisperKit)", loom: "Uploaded to the cloud" },
+  { feat: "Source code", voom: "Open (MIT)", loom: "Proprietary" },
+];
+
+const stack = ["Swift", "SwiftUI", "ScreenCaptureKit", "VideoToolbox · HEVC", "WhisperKit", "Cloudflare Workers", "R2", "D1"];
+
+const faqItems = [
+  { q: "Is Voom really free?", a: "Yes — free and open source under the MIT license. There is no paid tier and no trial. Optional cloud sharing runs entirely within Cloudflare's free tier on your own account." },
+  { q: "Do my recordings get uploaded anywhere?", a: "No. By default everything stays on your Mac. Nothing is uploaded unless you explicitly choose to create a share link, and even then it goes to your own Cloudflare account — never to us." },
+  { q: "Is transcription really on-device?", a: "Yes. Voom uses WhisperKit (distil-large-v3) running on Apple's Neural Engine. Your audio never leaves the machine — no OpenAI API, no third-party transcription service." },
+  { q: "Does Voom work offline?", a: "Completely. Recording, editing, and transcription all work with no internet connection. A connection is only needed if you choose to generate a hosted share link." },
+  { q: "How is Voom different from Loom?", a: "Voom is free and open source, a ~5 MB native Swift app (not 200 MB of Electron), transcribes on-device instead of in the cloud, and shares through infrastructure you own. No account, no telemetry, no per-seat bill." },
+];
+---
+
+<Layout>
+  <!-- ================= HERO ================= -->
+  <section class="relative overflow-hidden">
+    <div class="glow glow-hero"></div>
+    <div class="bg-grid"></div>
+
+    <div class="container-x relative z-10 pt-16 pb-10 text-center md:pt-24">
+      <Reveal client:load className="flex justify-center">
+        <a href={repo} target="_blank" rel="noopener" class="pill pill-tint">
+          <span class="inline-block h-1.5 w-1.5 rounded-full" style="background: var(--color-tint); box-shadow: 0 0 8px var(--color-tint)"></span>
+          Open source · MIT · for macOS
+        </a>
+      </Reveal>
+
+      <HeroTitle
+        client:load
+        className="mx-auto mt-7 max-w-[16ch] text-[clamp(2.6rem,7.2vw,5.1rem)] font-semibold leading-[1.02] tracking-[-0.038em]"
+        lines={[{ text: "Record your screen." }, { text: "Keep it yours.", tint: true }]}
+      />
+
+      <Reveal client:load delay={0.15}>
+        <p class="mx-auto mt-6 max-w-[52ch] text-[clamp(1rem,2vw,1.18rem)] leading-relaxed" style="color: var(--color-body)">
+          Voom is the open-source, privacy-first Loom alternative for macOS. Capture screen, camera, and mic. Transcribe on-device. Share through infrastructure you own — never ours.
+        </p>
+      </Reveal>
+
+      <Reveal client:load delay={0.25}>
+        <div class="mt-9 flex flex-wrap items-center justify-center gap-3">
+          <a href="/download" class="btn btn-primary btn-lg">
+            <Icon name="apple" class="h-[18px] w-[18px]" /> Download for Mac
+          </a>
+          <a href={repo} target="_blank" rel="noopener" class="btn btn-ghost btn-lg">
+            <Icon name="github" class="h-[18px] w-[18px]" /> View source
+          </a>
+        </div>
+        <p class="mt-5 font-mono text-[12px] tracking-wide" style="color: var(--color-faint)">
+          Free &amp; open source · macOS 15+ · Apple Silicon + Intel · ~5 MB
+        </p>
+        <p class="mt-2 text-[13px]" style="color: var(--color-muted)">
+          No account. No telemetry. Nothing leaves your Mac unless you choose to share it.
+        </p>
+      </Reveal>
+    </div>
+
+    <!-- product shot, bleeding into the page -->
+    <div class="container-x relative z-10 pb-4">
+      <Reveal client:load delay={0.3}>
+        <HeroShot client:load src="/screenshot.png" alt="The Voom app on macOS — recording library, transcript, and share view" />
+      </Reveal>
+    </div>
+    <div class="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-32" style="background: linear-gradient(to bottom, transparent, var(--color-base))"></div>
+  </section>
+
+  <!-- ================= TRUST BAND ================= -->
+  <section class="border-y" style="border-color: var(--color-hair); background: var(--color-base-2)">
+    <div class="container-x py-6">
+      <div class="flex flex-wrap items-center justify-center gap-x-7 gap-y-3">
+        {stats.map((s) => (
+          <span class="inline-flex items-center gap-2 text-[13px]" style="color: var(--color-muted)">
+            <Icon name={s.icon} class="h-4 w-4" />
+            {s.label}
+          </span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FEATURE TABS ================= -->
+  <section class="section relative">
+    <div class="container-x">
+      <Reveal client:visible className="mx-auto max-w-[640px] text-center">
+        <p class="eyebrow">Everything in one app</p>
+        <h2 class="section-title mt-3">Record, refine, and share<br class="hidden sm:block" /> without leaving Voom.</h2>
+        <p class="section-lead mx-auto mt-4">From the first click to the shared link — every step is native, fast, and yours.</p>
+      </Reveal>
+      <div class="mt-12">
+        <FeatureTabs client:visible tabs={tabs} />
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PRIVACY BAND ================= -->
+  <section class="section relative overflow-hidden border-t" style="border-color: var(--color-hair)">
+    <div class="glow glow-soft" style="width:680px;height:420px;left:50%;top:0;transform:translateX(-50%);opacity:0.4"></div>
+    <div class="container-x relative z-10">
+      <Reveal client:visible className="mx-auto max-w-[640px] text-center">
+        <p class="eyebrow">Privacy by design</p>
+        <h2 class="section-title mt-3">Your recordings never<br class="hidden sm:block" /> touch our servers.</h2>
+        <p class="section-lead mx-auto mt-4">Because there are no servers. Voom is built so your screen, your voice, and your data stay exactly where you put them.</p>
+      </Reveal>
+      <div class="mt-12 grid gap-4 md:grid-cols-3">
+        {privacy.map((p, i) => (
+          <Reveal client:visible delay={i * 0.08}>
+            <div class="card card-hover h-full">
+              <div class="flex h-11 w-11 items-center justify-center rounded-xl" style="background: var(--color-tint-soft); color: var(--color-tint-bright)">
+                <Icon name={p.icon} class="h-[22px] w-[22px]" />
+              </div>
+              <h3 class="mt-4 text-[16px] font-medium" style="color: var(--color-title)">{p.title}</h3>
+              <p class="mt-2 text-[14px] leading-relaxed" style="color: var(--color-body)">{p.desc}</p>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= HOW IT WORKS ================= -->
+  <section class="section border-t" style="border-color: var(--color-hair)">
+    <div class="container-x">
+      <Reveal client:visible className="mx-auto max-w-[640px] text-center">
+        <p class="eyebrow">How it works</p>
+        <h2 class="section-title mt-3">Three steps. Sixty seconds.</h2>
+      </Reveal>
+      <div class="mt-12 grid gap-4 md:grid-cols-3">
+        {steps.map((s, i) => (
+          <Reveal client:visible delay={i * 0.08}>
+            <div class="card h-full">
+              <span class="font-mono text-[13px]" style="color: var(--color-tint-bright)">{s.n}</span>
+              <h3 class="mt-3 text-[19px] font-semibold" style="color: var(--color-title)">{s.title}</h3>
+              <p class="mt-2 text-[14px] leading-relaxed" style="color: var(--color-body)">{s.desc}</p>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= VS LOOM TEASER ================= -->
+  <section class="section border-t" style="border-color: var(--color-hair)">
+    <div class="container-x">
+      <div class="grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+        <Reveal client:visible>
+          <p class="eyebrow">Voom vs Loom</p>
+          <h2 class="section-title mt-3">Everything Loom does.<br />None of the lock-in.</h2>
+          <p class="section-lead mt-4">Same async video workflow — free, native, on-device, and open. You keep your recordings and your money.</p>
+          <a href="/loom-alternative" class="btn btn-ghost mt-6">
+            See the full comparison <Icon name="arrow" class="h-4 w-4" />
+          </a>
+        </Reveal>
+
+        <Reveal client:visible delay={0.1}>
+          <div class="overflow-hidden rounded-2xl border" style="border-color: var(--color-hair); background: var(--color-surface)">
+            <div class="grid grid-cols-[1.2fr_1fr_1fr] text-[13px] font-mono uppercase tracking-wider" style="color: var(--color-faint); background: var(--color-base-2)">
+              <div class="px-4 py-3"></div>
+              <div class="px-4 py-3 text-center" style="color: var(--color-tint-bright)">Voom</div>
+              <div class="px-4 py-3 text-center">Loom</div>
+            </div>
+            {compare.map((r, i) => (
+              <div class="grid grid-cols-[1.2fr_1fr_1fr] border-t text-[13.5px]" style="border-color: var(--color-hair)">
+                <div class="px-4 py-3.5" style="color: var(--color-muted)">{r.feat}</div>
+                <div class="px-4 py-3.5 text-center font-medium" style="background: var(--color-tint-soft); color: var(--color-title)">{r.voom}</div>
+                <div class="px-4 py-3.5 text-center" style="color: var(--color-body)">{r.loom}</div>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= STACK ================= -->
+  <section class="section border-t" style="border-color: var(--color-hair)">
+    <div class="container-x">
+      <div class="grid gap-12 lg:grid-cols-2">
+        <Reveal client:visible>
+          <p class="eyebrow">Under the hood</p>
+          <h2 class="section-title mt-3">Native to the core.</h2>
+          <p class="section-lead mt-4">Built with Swift and SwiftUI on Apple's own frameworks. No Electron, no ffmpeg, no bloat — just a fast, ~5 MB app that feels at home on your Mac.</p>
+          <div class="mt-6 flex flex-wrap gap-2">
+            {stack.map((t) => <span class="pill font-mono">{t}</span>)}
+          </div>
+        </Reveal>
+
+        <Reveal client:visible delay={0.1}>
+          <div>
+            <p class="mb-3 text-[14px]" style="color: var(--color-muted)">Prefer to build it yourself? It's all on GitHub.</p>
+            <pre class="code-block"><code>git clone https://github.com/aritropaul/voom.git
+cd voom/Voom
+open Voom.xcodeproj</code></pre>
+            <p class="mt-4 text-[13.5px]" style="color: var(--color-faint)">Requires macOS 15+. Cloud sharing is optional — Voom works fully offline.</p>
+          </div>
+        </Reveal>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FAQ ================= -->
+  <section class="section border-t" style="border-color: var(--color-hair)">
+    <div class="container-narrow">
+      <Reveal client:visible className="text-center">
+        <p class="eyebrow">FAQ</p>
+        <h2 class="section-title mt-3">Questions, answered.</h2>
+      </Reveal>
+      <div class="mt-10">
+        <Faq client:visible items={faqItems} />
+      </div>
+      <div class="mt-8 text-center">
+        <a href="/faq" class="link-tint text-[14px]">Read every question →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FINAL CTA ================= -->
+  <section class="relative overflow-hidden border-t" style="border-color: var(--color-hair)">
+    <div class="glow glow-hero" style="opacity:0.5;top:-40px"></div>
+    <div class="container-x relative z-10 py-24 text-center md:py-32">
+      <Reveal client:visible>
+        <h2 class="mx-auto max-w-[18ch] text-[clamp(2rem,5vw,3.4rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-grad">
+          Record your first Voom in a minute.
+        </h2>
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <a href="/download" class="btn btn-primary btn-lg">
+            <Icon name="download" class="h-[18px] w-[18px]" /> Download for Mac
+          </a>
+          <a href={repo} target="_blank" rel="noopener" class="btn btn-ghost btn-lg">
+            <Icon name="github" class="h-[18px] w-[18px]" /> Star on GitHub
+          </a>
+        </div>
+        <p class="mt-5 font-mono text-[12px]" style="color: var(--color-faint)">Free forever · macOS 15+ · No account required</p>
+      </Reveal>
+    </div>
+  </section>
+</Layout>

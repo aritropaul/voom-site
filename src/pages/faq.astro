@@ -1,0 +1,144 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Icon from "../components/Icon.astro";
+import Reveal from "../components/react/Reveal.tsx";
+import Faq from "../components/react/Faq.tsx";
+
+const repo    = "https://github.com/aritropaul/voom";
+const issues  = "https://github.com/aritropaul/voom/issues";
+const contact = "mailto:voom@aritro.xyz";
+
+const faqItems = [
+  {
+    q: "Is Voom really free?",
+    a: "Yes — completely free, forever. There is no paid tier, no trial, and no credit card anywhere in the flow. Voom is MIT-licensed open source. Optional cloud sharing runs entirely on Cloudflare's free tier within your own account.",
+  },
+  {
+    q: "Is Voom open source? Can I see the code?",
+    a: "Yes. Voom is MIT-licensed and the full source is on GitHub. You can read every line, build it yourself, fork it, or use it commercially — the license places no restrictions.",
+  },
+  {
+    q: "Do my recordings get uploaded anywhere?",
+    a: "No. By default, everything — recording, editing, transcription — stays entirely on your Mac. Nothing is ever uploaded unless you explicitly choose to generate a share link, and even then it goes to your own Cloudflare account, not ours. Voom has no servers.",
+  },
+  {
+    q: "Is transcription really on-device?",
+    a: "Yes. Voom uses WhisperKit (distil-large-v3) running locally on Apple's Neural Engine. Your audio never leaves the machine — there is no OpenAI API call, no third-party service, nothing phoning home.",
+  },
+  {
+    q: "Does Voom work offline?",
+    a: "Completely. Recording, editing, trimming, and on-device transcription all work with no internet connection at all. A connection is only needed if you choose to push a recording to a share link via Cloudflare.",
+  },
+  {
+    q: "What do I need to share a recording as a link?",
+    a: "Your own free Cloudflare account — no credit card required. Cloudflare's free tier includes 100,000 Worker requests per day, 10 GB of R2 storage with zero egress fees, and 5 GB of D1 database storage. You connect it once and Voom handles the rest.",
+  },
+  {
+    q: "Where do shared recordings actually live?",
+    a: "On your Cloudflare R2 bucket, in your Cloudflare account — not on any Voom server. You own the storage, you control the data, and you can delete it at any time directly from Cloudflare.",
+  },
+  {
+    q: "How is Voom different from Loom?",
+    a: "Loom costs $18 per user per month, ships as a ~200 MB Electron app, transcribes audio in the cloud, stores recordings on Loom's own servers, requires an account, and is closed source. Voom is free, a ~5 MB native Swift app, transcribes entirely on-device, stores recordings only where you choose, needs no account, and is fully open source under the MIT license.",
+  },
+  {
+    q: "Which Macs are supported?",
+    a: "Voom requires macOS 15 or later and runs on both Apple Silicon and Intel Macs. On-device transcription with WhisperKit requires Apple Silicon (it uses Apple's Neural Engine). All other features work on Intel.",
+  },
+  {
+    q: "Is my data private? Any telemetry?",
+    a: "None. There are no analytics SDKs, no crash reporters, and no background network requests in Voom. The binary you download is the whole product — no data collection of any kind.",
+  },
+  {
+    q: "Can I build it from source or use it commercially?",
+    a: "Yes on both counts. Clone the repo, open Voom.xcodeproj in Xcode on a Mac running macOS 15+, and build. The MIT license lets you use, modify, and distribute Voom — including commercially — with no royalties or restrictions.",
+  },
+];
+---
+
+<Layout
+  title="Voom FAQ — free, open-source screen recording for macOS"
+  description="Answers to common questions about Voom: pricing, privacy, on-device transcription, Cloudflare sharing, macOS requirements, open-source licensing, and how Voom compares to Loom."
+>
+  <!-- ================= HERO ================= -->
+  <section class="relative overflow-hidden">
+    <div class="glow glow-hero" style="opacity:0.45"></div>
+    <div class="bg-grid"></div>
+    <div class="container-narrow relative z-10 pt-16 pb-12 text-center md:pt-24">
+      <Reveal client:load>
+        <p class="eyebrow">FAQ</p>
+        <h1
+          class="mx-auto mt-5 max-w-[20ch] text-[clamp(2.4rem,6vw,4rem)] font-semibold leading-[1.04] tracking-[-0.036em] text-grad"
+        >
+          Questions, answered.
+        </h1>
+        <p class="section-lead mx-auto mt-5">
+          Everything you want to know about how Voom works, what it costs (nothing), and where your data goes (nowhere it shouldn't).
+        </p>
+      </Reveal>
+    </div>
+  </section>
+
+  <!-- ================= FAQ ACCORDION ================= -->
+  <section class="section border-t" style="border-color: var(--color-hair)">
+    <div class="container-narrow">
+      <Reveal client:visible>
+        <Faq client:visible items={faqItems} />
+      </Reveal>
+    </div>
+  </section>
+
+  <!-- ================= STILL HAVE A QUESTION? ================= -->
+  <section class="section border-t" style="border-color: var(--color-hair); background: var(--color-base-2)">
+    <div class="container-narrow">
+      <Reveal client:visible className="text-center">
+        <div
+          class="flex h-14 w-14 items-center justify-center rounded-2xl mx-auto"
+          style="background: var(--color-tint-soft); color: var(--color-tint-bright)"
+        >
+          <Icon name="chat" class="h-7 w-7" />
+        </div>
+        <h2 class="section-title mt-5">Still have a question?</h2>
+        <p class="section-lead mx-auto mt-4">
+          Open a GitHub issue if it's about a bug or feature — that keeps everything in one place. Or send a note directly and we'll get back to you.
+        </p>
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <a href={issues} target="_blank" rel="noopener" class="btn btn-primary">
+            <Icon name="github" class="h-[17px] w-[17px]" /> Open a GitHub Issue
+          </a>
+          <a href={contact} class="btn btn-ghost">
+            <Icon name="chat" class="h-[17px] w-[17px]" /> Send an email
+          </a>
+        </div>
+      </Reveal>
+    </div>
+  </section>
+
+  <!-- ================= CLOSING CTA ================= -->
+  <section class="relative overflow-hidden border-t" style="border-color: var(--color-hair)">
+    <div class="glow glow-hero" style="opacity:0.5;top:-40px"></div>
+    <div class="container-x relative z-10 py-24 text-center md:py-32">
+      <Reveal client:visible>
+        <h2
+          class="mx-auto max-w-[18ch] text-[clamp(2rem,5vw,3.4rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-grad"
+        >
+          Ready to try it for yourself?
+        </h2>
+        <p class="section-lead mx-auto mt-5">
+          Free, forever. Download in seconds — no account, no setup, nothing to configure.
+        </p>
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <a href="/download" class="btn btn-primary btn-lg">
+            <Icon name="apple" class="h-[18px] w-[18px]" /> Download for Mac
+          </a>
+          <a href={repo} target="_blank" rel="noopener" class="btn btn-ghost btn-lg">
+            <Icon name="github" class="h-[18px] w-[18px]" /> Star on GitHub
+          </a>
+        </div>
+        <p class="mt-5 font-mono text-[12px]" style="color: var(--color-faint)">
+          Free forever · macOS 15+ · No account required
+        </p>
+      </Reveal>
+    </div>
+  </section>
+</Layout>

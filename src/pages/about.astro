@@ -1,0 +1,293 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Icon from "../components/Icon.astro";
+import Reveal from "../components/react/Reveal.tsx";
+
+const repo     = "https://github.com/aritropaul/voom";
+const releases = "https://github.com/aritropaul/voom/releases/latest";
+const issues   = "https://github.com/aritropaul/voom/issues";
+const contact  = "mailto:voom@aritro.xyz";
+const maintainer = "https://github.com/aritropaul";
+
+const principles = [
+  {
+    icon: "globe",
+    title: "Open by default",
+    desc: "Every line of code is public under the MIT license. Fork it, audit it, ship it — no permission needed.",
+  },
+  {
+    icon: "shield",
+    title: "Private by design",
+    desc: "Recording, editing, and transcription happen on your Mac. There is no analytics SDK, no crash reporter, and no telemetry of any kind.",
+  },
+  {
+    icon: "bolt",
+    title: "Native, not Electron",
+    desc: "Voom is a ~5 MB Swift app built on Apple's own frameworks. Not a web page wrapped in a 200 MB runtime.",
+  },
+  {
+    icon: "server",
+    title: "You own your data",
+    desc: "When you share a recording, it goes to your own Cloudflare account — your R2 bucket, your domain, your Workers. Nothing touches infrastructure we operate.",
+  },
+];
+---
+
+<Layout
+  title="About Voom — open-source screen recording for macOS"
+  description="Why Voom exists: a free, native, private, open-source screen recording tool for macOS. No subscription, no cloud upload, no closed binary."
+>
+  <!-- ================= HERO ================= -->
+  <section class="relative overflow-hidden">
+    <div class="glow glow-hero" style="opacity:0.45"></div>
+    <div class="bg-grid"></div>
+
+    <div class="container-narrow relative z-10 pt-16 pb-12 md:pt-24 md:pb-16">
+      <Reveal client:load>
+        <p class="eyebrow">About</p>
+        <h1
+          class="mt-5 text-[clamp(2.4rem,6.5vw,4.2rem)] font-semibold leading-[1.03] tracking-[-0.036em] text-grad"
+        >
+          Why Voom exists.
+        </h1>
+        <p class="section-lead mt-5">
+          Screen recording shouldn't require a subscription, a cloud upload, or a closed binary.
+        </p>
+      </Reveal>
+    </div>
+  </section>
+
+  <!-- ================= THE IDEA ================= -->
+  <section class="section border-t" style="border-color: var(--color-hair)">
+    <div class="container-narrow">
+      <Reveal client:visible>
+        <p class="eyebrow">The idea</p>
+        <h2 class="section-title mt-3">A tool that belongs to you.</h2>
+      </Reveal>
+
+      <Reveal client:visible delay={0.08}>
+        <div class="mt-8 space-y-5">
+          <p
+            class="text-[clamp(1rem,1.8vw,1.1rem)] leading-[1.75]"
+            style="color: var(--color-body)"
+          >
+            Loom solved a real problem. Async screen recordings are genuinely useful for teams,
+            documentation, and handoffs. But Loom is a closed, cloud-first product that costs
+            $18 per user per month, sends your recordings to their servers, and runs as a
+            200&nbsp;MB Electron app. None of that is necessary for the recording workflow itself.
+          </p>
+          <p
+            class="text-[clamp(1rem,1.8vw,1.1rem)] leading-[1.75]"
+            style="color: var(--color-body)"
+          >
+            Voom is the answer to that question: what does a screen recorder look like when it
+            has no business model to protect? It's free, MIT-licensed, and built as a native
+            Swift app. Recording, editing, and transcription all happen on your Mac — none of it
+            leaves the machine unless you explicitly generate a share link. When you do share,
+            the video goes to your own Cloudflare account, not ours. There are no Voom servers.
+          </p>
+          <p
+            class="text-[clamp(1rem,1.8vw,1.1rem)] leading-[1.75]"
+            style="color: var(--color-body)"
+          >
+            The goal is a tool that fits into your workflow without asking anything in return —
+            no account, no trial, no telemetry, no lock-in. Just a fast, capable recorder that
+            treats your screen and your voice as yours.
+          </p>
+        </div>
+      </Reveal>
+    </div>
+  </section>
+
+  <!-- ================= PRINCIPLES ================= -->
+  <section class="section relative overflow-hidden border-t" style="border-color: var(--color-hair)">
+    <div class="glow glow-soft" style="width:640px;height:380px;left:50%;top:0;transform:translateX(-50%);opacity:0.35"></div>
+    <div class="container-x relative z-10">
+      <Reveal client:visible className="mx-auto max-w-[640px] text-center">
+        <p class="eyebrow">Principles</p>
+        <h2 class="section-title mt-3">What Voom is built on.</h2>
+      </Reveal>
+
+      <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {principles.map((p, i) => (
+          <Reveal client:visible delay={i * 0.08}>
+            <div class="card card-hover h-full">
+              <div
+                class="flex h-11 w-11 items-center justify-center rounded-xl"
+                style="background: var(--color-tint-soft); color: var(--color-tint-bright)"
+              >
+                <Icon name={p.icon} class="h-[22px] w-[22px]" />
+              </div>
+              <h3
+                class="mt-4 text-[16px] font-medium"
+                style="color: var(--color-title)"
+              >
+                {p.title}
+              </h3>
+              <p
+                class="mt-2 text-[14px] leading-relaxed"
+                style="color: var(--color-body)"
+              >
+                {p.desc}
+              </p>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BUILT IN THE OPEN ================= -->
+  <section class="section border-t" style="border-color: var(--color-hair)">
+    <div class="container-narrow">
+      <Reveal client:visible>
+        <p class="eyebrow">Built in the open</p>
+        <h2 class="section-title mt-3">Everything is on GitHub.</h2>
+        <p class="section-lead mt-4">
+          The source code, the releases, the issue tracker — all public. If something
+          is broken or missing, open an issue. If you want to fix it, open a pull request.
+        </p>
+      </Reveal>
+
+      <Reveal client:visible delay={0.08}>
+        <div
+          class="mt-10 grid gap-4 overflow-hidden rounded-2xl border sm:grid-cols-3"
+          style="border-color: var(--color-hair); background: var(--color-surface)"
+        >
+          <a
+            href={repo}
+            target="_blank"
+            rel="noopener"
+            class="group flex flex-col gap-3 border-b p-6 transition-colors hover:bg-white/[0.03] sm:border-b-0 sm:border-r"
+            style="border-color: var(--color-hair)"
+          >
+            <div
+              class="flex h-10 w-10 items-center justify-center rounded-xl"
+              style="background: var(--color-tint-soft); color: var(--color-tint-bright)"
+            >
+              <Icon name="github" class="h-5 w-5" />
+            </div>
+            <div>
+              <p class="text-[14px] font-medium" style="color: var(--color-title)">Source code</p>
+              <p class="mt-1 text-[13px]" style="color: var(--color-muted)">
+                Browse the full codebase on GitHub
+              </p>
+            </div>
+            <span class="link-tint mt-auto text-[13px]">github.com/aritropaul/voom →</span>
+          </a>
+
+          <a
+            href={releases}
+            target="_blank"
+            rel="noopener"
+            class="group flex flex-col gap-3 border-b p-6 transition-colors hover:bg-white/[0.03] sm:border-b-0 sm:border-r"
+            style="border-color: var(--color-hair)"
+          >
+            <div
+              class="flex h-10 w-10 items-center justify-center rounded-xl"
+              style="background: var(--color-tint-soft); color: var(--color-tint-bright)"
+            >
+              <Icon name="download" class="h-5 w-5" />
+            </div>
+            <div>
+              <p class="text-[14px] font-medium" style="color: var(--color-title)">Releases</p>
+              <p class="mt-1 text-[13px]" style="color: var(--color-muted)">
+                Download the latest build directly from GitHub
+              </p>
+            </div>
+            <span class="link-tint mt-auto text-[13px]">Latest release →</span>
+          </a>
+
+          <a
+            href={issues}
+            target="_blank"
+            rel="noopener"
+            class="group flex flex-col gap-3 p-6 transition-colors hover:bg-white/[0.03]"
+          >
+            <div
+              class="flex h-10 w-10 items-center justify-center rounded-xl"
+              style="background: var(--color-tint-soft); color: var(--color-tint-bright)"
+            >
+              <Icon name="chat" class="h-5 w-5" />
+            </div>
+            <div>
+              <p class="text-[14px] font-medium" style="color: var(--color-title)">Issues</p>
+              <p class="mt-1 text-[13px]" style="color: var(--color-muted)">
+                Bug reports, feature requests, and discussions
+              </p>
+            </div>
+            <span class="link-tint mt-auto text-[13px]">Open an issue →</span>
+          </a>
+        </div>
+      </Reveal>
+
+      <Reveal client:visible delay={0.12}>
+        <div
+          class="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-2xl border px-6 py-5"
+          style="border-color: var(--color-hair); background: var(--color-surface)"
+        >
+          <div class="flex items-center gap-4">
+            <div
+              class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
+              style="background: var(--color-tint-soft); color: var(--color-tint-bright)"
+            >
+              <Icon name="heart" class="h-5 w-5" />
+            </div>
+            <div>
+              <p class="text-[14px] font-medium" style="color: var(--color-title)">
+                Maintained by
+                <a
+                  href={maintainer}
+                  target="_blank"
+                  rel="noopener"
+                  class="link-tint"
+                >@aritropaul</a>
+              </p>
+              <p class="mt-0.5 text-[13px]" style="color: var(--color-muted)">
+                Questions or ideas? Reach out at
+                <a href={contact} class="link-tint">voom@aritro.xyz</a>
+              </p>
+            </div>
+          </div>
+          <a
+            href={issues}
+            target="_blank"
+            rel="noopener"
+            class="btn btn-ghost btn-sm shrink-0"
+          >
+            <Icon name="github" class="h-4 w-4" /> Contribute
+          </a>
+        </div>
+      </Reveal>
+    </div>
+  </section>
+
+  <!-- ================= FINAL CTA ================= -->
+  <section class="relative overflow-hidden border-t" style="border-color: var(--color-hair)">
+    <div class="glow glow-hero" style="opacity:0.5;top:-40px"></div>
+    <div class="container-x relative z-10 py-24 text-center md:py-32">
+      <Reveal client:visible>
+        <h2
+          class="mx-auto max-w-[22ch] text-[clamp(1.9rem,4.8vw,3.2rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-grad"
+        >
+          Yours to keep, use, and change.
+        </h2>
+        <p class="mx-auto mt-5 max-w-[42ch] text-[15px] leading-relaxed" style="color: var(--color-body)">
+          Download the app, read the code, or open a pull request. Voom is free, MIT-licensed,
+          and built to stay that way.
+        </p>
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <a href="/download" class="btn btn-primary btn-lg">
+            <Icon name="apple" class="h-[18px] w-[18px]" /> Download for Mac
+          </a>
+          <a href={repo} target="_blank" rel="noopener" class="btn btn-ghost btn-lg">
+            <Icon name="github" class="h-[18px] w-[18px]" /> Star on GitHub
+          </a>
+        </div>
+        <p class="mt-5 font-mono text-[12px]" style="color: var(--color-faint)">
+          Free forever · macOS 15+ · No account required
+        </p>
+      </Reveal>
+    </div>
+  </section>
+</Layout>

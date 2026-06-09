@@ -1,0 +1,222 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Icon from "../components/Icon.astro";
+import Reveal from "../components/react/Reveal.tsx";
+
+const repo     = "https://github.com/aritropaul/voom";
+const releases = `${repo}/releases/latest`;
+
+const requirements = [
+  { icon: "apple",    title: "macOS 15+",              desc: "Requires macOS Sequoia 15 or later. No back-port, no legacy build." },
+  { icon: "bolt",     title: "Apple Silicon + Intel",   desc: "Universal binary. Runs natively on M-series and Intel Macs alike. On-device transcription requires Apple Silicon." },
+  { icon: "download", title: "~5 MB download",          desc: "No Electron, no ffmpeg, no bundled runtime. Just a tight native Swift app." },
+  { icon: "lock",     title: "No account required",     desc: "Download and record immediately. No sign-up, no email, not even to get started." },
+];
+
+const pills = [
+  "No account",
+  "No telemetry",
+  "On-device transcription",
+];
+---
+
+<Layout
+  title="Download Voom for macOS — free & open source"
+  description="Download Voom — the free, open-source, privacy-first screen recorder for macOS. Native Swift, ~5 MB, no account required."
+>
+
+  <!-- ================= HERO ================= -->
+  <section class="relative overflow-hidden">
+    <div class="glow glow-hero" style="opacity:0.55"></div>
+    <div class="bg-grid"></div>
+
+    <div class="container-x relative z-10 pt-20 pb-12 text-center md:pt-28 md:pb-16">
+
+      <Reveal client:load>
+        <p class="eyebrow">Download</p>
+      </Reveal>
+
+      <Reveal client:load delay={0.08}>
+        <h1 class="mx-auto mt-5 max-w-[20ch] text-[clamp(2.4rem,6.5vw,4.6rem)] font-semibold leading-[1.03] tracking-[-0.036em] text-grad">
+          The fastest way to record your screen.
+        </h1>
+      </Reveal>
+
+      <Reveal client:load delay={0.14}>
+        <p class="section-lead mx-auto mt-6 max-w-[50ch]">
+          Pin Voom to your dock and you're one click away from a full-retina recording — screen, camera, mic, live drawing tools, and on-device transcription. No setup, no account, no waiting.
+        </p>
+      </Reveal>
+
+      <Reveal client:load delay={0.2}>
+        <div class="mt-9 flex flex-wrap items-center justify-center gap-3">
+          <a href={releases} target="_blank" rel="noopener" class="btn btn-primary btn-lg">
+            <Icon name="apple" class="h-[18px] w-[18px]" /> Download for Mac
+          </a>
+          <a href={repo} target="_blank" rel="noopener" class="btn btn-ghost btn-lg">
+            <Icon name="github" class="h-[18px] w-[18px]" /> View source
+          </a>
+        </div>
+
+        <p class="mt-5 font-mono text-[12px] tracking-wide" style="color: var(--color-faint)">
+          macOS 15+ &nbsp;·&nbsp; Apple Silicon + Intel &nbsp;·&nbsp; ~5 MB &nbsp;·&nbsp; Free &amp; open source
+        </p>
+
+        <div class="mt-5 flex flex-wrap items-center justify-center gap-2">
+          {pills.map((label) => (
+            <span class="pill">
+              <Icon name="check" class="h-3.5 w-3.5" style="color: var(--color-tint-bright)" />
+              {label}
+            </span>
+          ))}
+        </div>
+      </Reveal>
+
+    </div>
+  </section>
+
+
+  <!-- ================= WHAT YOU NEED ================= -->
+  <section class="section border-t" style="border-color: var(--color-hair)">
+    <div class="container-x">
+
+      <Reveal client:visible className="mx-auto max-w-[640px]">
+        <p class="eyebrow">What you need</p>
+        <h2 class="section-title mt-3">System requirements.</h2>
+        <p class="section-lead mt-4">
+          Voom is a lightweight native app. The only real requirement is macOS 15 — everything else is optional or already on your Mac.
+        </p>
+      </Reveal>
+
+      <div class="mt-12 grid gap-4 sm:grid-cols-2 md:grid-cols-4">
+        {requirements.map((r, i) => (
+          <Reveal client:visible delay={i * 0.08}>
+            <div class="card card-hover h-full">
+              <div
+                class="flex h-11 w-11 items-center justify-center rounded-xl"
+                style="background: var(--color-tint-soft); color: var(--color-tint-bright)"
+              >
+                <Icon name={r.icon} class="h-[22px] w-[22px]" />
+              </div>
+              <h3 class="mt-4 text-[16px] font-medium" style="color: var(--color-title)">{r.title}</h3>
+              <p class="mt-2 text-[14px] leading-relaxed" style="color: var(--color-body)">{r.desc}</p>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ================= OTHER WAYS TO INSTALL ================= -->
+  <section class="section border-t" style="border-color: var(--color-hair)">
+    <div class="container-x">
+
+      <div class="grid gap-12 lg:grid-cols-2 lg:items-start">
+
+        <Reveal client:visible>
+          <p class="eyebrow">Other ways to install</p>
+          <h2 class="section-title mt-3">Build from source.</h2>
+          <p class="section-lead mt-4">
+            Prefer to build it yourself? It's all on GitHub, MIT licensed — read every line.
+          </p>
+          <p class="mt-5 text-[14px] leading-relaxed" style="color: var(--color-muted)">
+            Clone the repo, open the Xcode project, and hit Run. No build scripts, no package manager, no surprises — just Swift.
+          </p>
+          <div class="mt-7 flex flex-wrap gap-3">
+            <a href={repo} target="_blank" rel="noopener" class="btn btn-ghost btn-sm">
+              <Icon name="github" class="h-4 w-4" /> View on GitHub
+            </a>
+            <a href={`${repo}/blob/main/LICENSE`} target="_blank" rel="noopener" class="btn btn-ghost btn-sm">
+              <Icon name="check" class="h-4 w-4" /> MIT License
+            </a>
+          </div>
+        </Reveal>
+
+        <Reveal client:visible delay={0.1}>
+          <div>
+            <p class="mb-3 text-[13px] font-mono tracking-wide uppercase" style="color: var(--color-faint); letter-spacing: 0.1em">
+              Terminal
+            </p>
+            <pre class="code-block"><code>git clone https://github.com/aritropaul/voom.git
+cd voom/Voom
+open Voom.xcodeproj</code></pre>
+            <p class="mt-4 text-[13px] leading-relaxed" style="color: var(--color-faint)">
+              Requires macOS 15+ and Xcode. Cloud sharing is entirely optional — Voom records and transcribes fully offline.
+            </p>
+          </div>
+        </Reveal>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ================= PRIVACY BAND ================= -->
+  <section class="section relative overflow-hidden border-t" style="border-color: var(--color-hair); background: var(--color-base-2)">
+    <div class="glow glow-soft" style="width:700px;height:400px;left:50%;top:0;transform:translateX(-50%);opacity:0.35"></div>
+    <div class="container-x relative z-10">
+
+      <Reveal client:visible className="mx-auto max-w-[640px] text-center">
+        <p class="eyebrow">Privacy first</p>
+        <h2 class="section-title mt-3">Nothing leaves your Mac.</h2>
+        <p class="section-lead mx-auto mt-4">
+          Recording, transcription, and editing all happen on-device. There are no Voom servers — nothing can leak because nothing is sent. Cloud sharing is purely optional, and it runs on your own Cloudflare account, not ours.
+        </p>
+      </Reveal>
+
+      <Reveal client:visible delay={0.1}>
+        <div
+          class="mx-auto mt-10 flex max-w-[560px] flex-wrap items-center justify-center gap-3 rounded-2xl border px-8 py-7"
+          style="border-color: var(--color-hair); background: var(--color-surface)"
+        >
+          {[
+            { icon: "shield", label: "No Voom servers — ever" },
+            { icon: "lock",   label: "No account required" },
+            { icon: "eye",    label: "Zero telemetry" },
+            { icon: "wave",   label: "On-device transcription" },
+            { icon: "cloud",  label: "Your own Cloudflare (optional)" },
+          ].map((item) => (
+            <span class="inline-flex items-center gap-2 text-[13.5px]" style="color: var(--color-muted)">
+              <Icon name={item.icon} class="h-4 w-4" style="color: var(--color-tint-bright)" />
+              {item.label}
+            </span>
+          ))}
+        </div>
+      </Reveal>
+
+    </div>
+  </section>
+
+
+  <!-- ================= CLOSING CTA ================= -->
+  <section class="relative overflow-hidden border-t" style="border-color: var(--color-hair)">
+    <div class="glow glow-hero" style="opacity:0.5;top:-40px"></div>
+    <div class="container-x relative z-10 py-24 text-center md:py-32">
+
+      <Reveal client:visible>
+        <h2 class="mx-auto max-w-[18ch] text-[clamp(2rem,5vw,3.4rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-grad">
+          Get recording in under a minute.
+        </h2>
+        <p class="mx-auto mt-5 max-w-[44ch] text-[clamp(1rem,2vw,1.1rem)] leading-relaxed" style="color: var(--color-body)">
+          Download the app, drag it to your dock, and hit record. That's it — no wizard, no account, no config.
+        </p>
+        <div class="mt-9 flex flex-wrap items-center justify-center gap-3">
+          <a href={releases} target="_blank" rel="noopener" class="btn btn-primary btn-lg">
+            <Icon name="download" class="h-[18px] w-[18px]" /> Download for Mac
+          </a>
+          <a href={repo} target="_blank" rel="noopener" class="btn btn-ghost btn-lg">
+            <Icon name="github" class="h-[18px] w-[18px]" /> Star on GitHub
+          </a>
+        </div>
+        <p class="mt-5 font-mono text-[12px]" style="color: var(--color-faint)">
+          Free forever &nbsp;·&nbsp; macOS 15+ &nbsp;·&nbsp; No account required
+        </p>
+      </Reveal>
+
+    </div>
+  </section>
+
+</Layout>
